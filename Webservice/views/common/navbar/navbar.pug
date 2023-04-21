@@ -1,0 +1,29 @@
+nav(class="navbar sticky-top navbar-expand-lg navbar-inverse")
+    .container-fluid
+      .navbar-header
+        a(class="navbar-brand" href="/")=navbar.websiteTitle
+
+      button(class="navbar-toggler" type="button" 
+          data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" 
+          aria-controls="navbarNavAltMarkup" aria-expanded="false" 
+          aria-label="Toggle navigation")
+        span(class="navbar-toggler-icon")
+
+      div(class="collapse navbar-collapse" id="navbarNavAltMarkup")
+        div(class="navbar-nav")
+          each page in navbar.subPages
+            div()
+              span(class="mt-2" + page.icon )
+              if page.activate
+                a(class="nav-link active"  aria-current="page" href=page.link)=page.title
+              else 
+                a(class="nav-link" href=page.link)=page.title
+      ul(class="nav navbar-nav navbar-right")
+        li
+          a(href="/login")
+            span(class="glyphicon glyphicon-log-in" aria-hidden="true")
+            p Login
+        li
+          a(href="/login")
+            span(class="glyphicon glyphicon-user" aria-hidden="true")
+            p Registrieren

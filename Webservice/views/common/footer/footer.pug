@@ -1,0 +1,18 @@
+footer(class=" my-1 border-top bd-footer fixed-bottom")
+  ul(class="nav justify-content-center border-bottom pb-3")
+    each page in navbar.subPages
+      li(class="nav justify-content-center")
+        a(href=page.link class="nav-link px-2 text-body-secondary")=page.title
+  div(class="col-md-4 d-flex align-items-center mt-1")
+    a(href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1")="Blog"
+    span(class="mb-3 mb-md-0 text-body-secondary") &copy; 2023 Grote Michael
+
+    ul(class="nav col-md-4 justify-content-end list-unstyled d-flex pull-right navbar-nav navbar-right")
+      li(class="ms-3")
+        a(href="https://github.com/michi3214/Projekt_Web_Engenering")
+          i(class="bi bi-github" )
+
+// Bootstrap
+script(src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous")
+
+script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous")
