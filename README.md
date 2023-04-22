@@ -7,5 +7,9 @@
 
 ### Installation der npm-Pakete
    Öffnen Sie im Terminal den Dateipfad des Projektes und führen Sie den Befehle: `npm install` aus. Nun werden alle benötigten Pakete geladen. 
+## Starten des Webserivce 
    Als nächstes kann der Webserver gestartet werden. Dazu führen Sie den Befehl: `npm start` aus. 
+
+## Nutzen der Webseite
+   Nun kann der Blog unter [http://localhost:3000/userConfig](http://localhost:3000/userConfig) aufgerufen werden. 
 
