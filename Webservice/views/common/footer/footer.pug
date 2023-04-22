@@ -1,16 +1,22 @@
-footer(class=" mt-1 border-top mb-4 bg-dark")
-  ul(class="nav justify-content-center border-bottom pb-3")
+footer(class="mt-1 border-top mb-4 bg-dark")
+  // Links to subpages
+  ul(class="nav justify-content-center border-bottom py-1")
     each page in pages
-      li(class="nav justify-content-center")
+      li(class="justify-content-center")
         a(href=page.link class="nav-link px-2 text-body-secondary")=page.title
-  div(class="col-md-4 d-flex align-items-center mt-1")
-    a(href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1")="Blog"
-    span(class="mb-3 mb-md-0 text-body-secondary") &copy; 2023 Grote Michael
 
-    ul(class="nav col-md-4 justify-content-end list-unstyled d-flex pull-right navbar-nav navbar-right")
-      li(class="ms-3")
-        a(href="https://github.com/michi3214/Projekt_Web_Engenering")
-          i(class="bi bi-github" )
+  div(class=" text-body-secondary d-flex")
+    // Information text 
+    div
+      a(href="/" class="text-decoration-none text-body-secondary px-2")=websiteName
+      span(class="text-body-secondary  px-2") &copy; 2023 
+      span(class="text-body-secondary  px-2") Grote Michael
+    
+    // Links to Github, ...
+    ul(class="nav list-inline flex-fill justify-content-end" style="font-size: 1.5em;")
+      li(class="nav-item px-2")
+        a(href="https://github.com/michi3214/Projekt_Web_Engenering" target="_blank" class="h-75")
+          i(class="bi bi-github"  alter="GitHub Link")
 
 // Bootstrap
 script(src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous")
