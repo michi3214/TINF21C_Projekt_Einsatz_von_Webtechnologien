@@ -1,7 +1,7 @@
 nav(class="navbar sticky-top navbar-expand-lg bg-dark")
     .container-fluid
       .navbar-header
-        a(class="navbar-brand" href="/")=navbar.websiteTitle
+        a(class="navbar-brand" href="/")=websiteName
 
       button(class="navbar-toggler" type="button" 
           data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" 
@@ -11,9 +11,9 @@ nav(class="navbar sticky-top navbar-expand-lg bg-dark")
 
       div(class="collapse navbar-collapse" id="navbarNavAltMarkup")
         div(class="navbar-nav")
-          each page in navbar.subPages
+          each page in pages
               span(class="mt-2 " + page.icon )
-              if page.activate
+              if activePage == page.title
                 a(class="nav-link active"  aria-current="page" href=page.link)=page.title
               else 
                 a(class="nav-link" href=page.link)=page.title
