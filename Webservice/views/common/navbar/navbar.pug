@@ -1,4 +1,4 @@
-nav(class="navbar sticky-top navbar-expand-lg navbar-inverse")
+nav(class="navbar sticky-top navbar-expand-lg bg-dark")
     .container-fluid
       .navbar-header
         a(class="navbar-brand" href="/")=navbar.websiteTitle
@@ -12,18 +12,15 @@ nav(class="navbar sticky-top navbar-expand-lg navbar-inverse")
       div(class="collapse navbar-collapse" id="navbarNavAltMarkup")
         div(class="navbar-nav")
           each page in navbar.subPages
-            div()
-              span(class="mt-2" + page.icon )
+              span(class="mt-2 " + page.icon )
               if page.activate
                 a(class="nav-link active"  aria-current="page" href=page.link)=page.title
               else 
                 a(class="nav-link" href=page.link)=page.title
-      ul(class="nav navbar-nav navbar-right")
-        li
-          a(href="/login")
-            span(class="glyphicon glyphicon-log-in" aria-hidden="true")
-            p Login
-        li
-          a(href="/login")
-            span(class="glyphicon glyphicon-user" aria-hidden="true")
-            p Registrieren
+        hr(class="d-lg-none text-white-50")
+        div#Login_Container
+          ul(class="navbar-nav flex-row flex-wrap ms-md-auto")
+            li(nav-item col-6 col-lg-auto)
+              button(class="bi bi-box-arrow-in-right mr-1")="Login"
+            li(class="nav-item col-6 col-lg-auto ml-5")
+            button="Registrieren"
