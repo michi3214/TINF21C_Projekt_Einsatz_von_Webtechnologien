@@ -2,7 +2,6 @@
  * This page includes the express logic. 
  */
 
-const mysql = require("mysql2/promise");
 const express   = require("express");
 const app 	    = express();
 const path = require("path");
