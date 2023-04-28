@@ -7,11 +7,26 @@ const database_data = {
 	table_names:{
 		tbl_content:{
 			name:"tbl_content",
-			column:{}
+			column:{
+				id: "id_content",
+				headline: "headline",
+				content: "content",
+				modify_timestamp: "modify_timestamp",
+				creation_timestamp: "creation_timestamp",
+				id_author: "id_author",
+			}
 		},
 		tbl_user:{
 			name:"tbl_content",
-			column:{}
+			column:{
+				id: "id_user",
+				name: "user_name",
+				password: "user_password",
+				salt: "salt",
+				privilege_read: "privilege_read",
+				privilege_update: "privilege_update",
+				privilege_delete: "privilege_delete",
+			}
 		},
 	}
 };
