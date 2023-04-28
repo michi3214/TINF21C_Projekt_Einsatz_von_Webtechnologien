@@ -1,7 +1,6 @@
-// TODO: Add the column names
 const database_data = {
 	host: "localhost",
- 	user: "root",
+	user: "root",
 	password: "",
 	database: "DB_TINF21C_Webtechnologien_Blog",
 	table_names:{

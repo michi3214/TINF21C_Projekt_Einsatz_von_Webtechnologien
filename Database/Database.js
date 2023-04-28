@@ -39,11 +39,11 @@ async function _load_from_database(tbl_name){
 async function _insert_to_database(tbl_name,columns ,content){
 	try {
 		const connection = await _create_Connection();
-		await connection.execute("INSERT INTO `?` (`?`) VALUES (?);", [tbl_name,columns, content]); // array wird mit for durchgelaufen und einzeln eingefügt
-		console.log("User added new content: ");
+		await connection.execute("INSERT INTO `?` (`?`) VALUES (?);", [tbl_name,columns, content]); 
 	} catch (error) {
-		console.error("Failed to add new content with error:");
-		console.error(error);
+		const errMsg = "Can not insert values. Error: \n" + error;
+		console.error("_insert_to_database: " + errMsg);
+		return errMsg;
 	}
 }
 
