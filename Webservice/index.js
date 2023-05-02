@@ -1,7 +1,6 @@
 /**
  * This page includes the express logic. 
  */
-
 const express   = require("express");
 const app 	    = express();
 const path = require("path");
@@ -17,6 +16,9 @@ app.use("/", require("./router/router_user"));
 
 //Page not Found
 app.use(errorController.getPage);
+
+
+
 
 const PORT = 3000;
 app.listen(PORT, console.log("Server has started at port " + PORT));

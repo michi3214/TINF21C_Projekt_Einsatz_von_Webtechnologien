@@ -1,4 +1,11 @@
 extends common\layout
 
 block content 
-    div="Halo hier kommt der Content"
+    each content in contents
+        div(class="container boarder m-2")
+            div(class="h2")=content.headline
+            div(class="container")
+                div="Author: " + content.author
+                div="Last modified: " + content.modifyed
+                div="Created: " + content.created
+            div=content.content

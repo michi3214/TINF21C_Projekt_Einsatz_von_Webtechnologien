@@ -2,7 +2,7 @@
  * This script implement all functions for connection to database. 
 */
 const mysql = require("mysql2/promise");
-const DATABASE_CONS = require("./constant_Database").database_data;
+const DATABASE_CONSTANTS = require("./constant_Database").database_data;
 
 
 /** 
@@ -12,7 +12,7 @@ const DATABASE_CONS = require("./constant_Database").database_data;
  * @returns {mysql.Connection} connection
  */
 async function _create_Connection(){
-	return await mysql.createConnection({host: DATABASE_CONS.host, user:DATABASE_CONS.user , database: DATABASE_CONS.database});
+	return await mysql.createConnection({host: DATABASE_CONSTANTS.host, user:DATABASE_CONSTANTS.user , database: DATABASE_CONSTANTS.database});
 }
 
 
@@ -24,17 +24,17 @@ async function _create_Connection(){
 async function _load_from_database(tbl_name){
 	try {
 		const connection = await _create_Connection(); 
-		const select_string = "SELECT * FROM `" + tbl_name + "`";
-		const [rows] = await connection.execute(select_string);
+		const selectString = "SELECT * FROM " + tbl_name + ";";
+		const [rows] = await connection.execute(selectString );
 		return rows;
 	} catch (error) {
 		const errMsg = "The access to the database failed. Error: \n" + error;
 		console.error("_load_from_database: " + errMsg);
-		return errMsg;
+		return {};
 	}
 }
 
-//TODO -[] Create docstring 
+// TODO: Add jsdoc
 async function _insert_to_database(tbl_name,columns ,content){
 	try {
 		const connection = await _create_Connection();
@@ -42,13 +42,22 @@ async function _insert_to_database(tbl_name,columns ,content){
 	} catch (error) {
 		const errMsg = "Can not insert values. Error: \n" + error;
 		console.error("_insert_to_database: " + errMsg);
-		return errMsg;
+		return {};
 	}
 }
 
+
+
+/**
+ * Get all contents from database
+ *
+ * @async
+ * @returns {unknown}
+ */
 async function load_content_from_database (){
-	const tbl_name_content = DATABASE_CONS.tbl_names.tbl_content;
-	return _load_from_database (tbl_name_content);
+	const tbl_name_content = DATABASE_CONSTANTS.tables.tbl_content.name;
+	const contents = await _load_from_database (tbl_name_content);
+	return contents;
 }
 
 //TODO implement function and docstring

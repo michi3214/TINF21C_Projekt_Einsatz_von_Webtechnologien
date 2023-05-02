@@ -3,7 +3,7 @@ const database_data = {
 	user: "root",
 	password: "",
 	database: "DB_TINF21C_Webtechnologien_Blog",
-	table_names:{
+	tables:{
 		tbl_content:{
 			name:"tbl_content",
 			column:{
