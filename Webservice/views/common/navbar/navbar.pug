@@ -1,24 +1,19 @@
-nav(class="navbar sticky-top navbar-expand-lg bg-dark border-bottom")
-    .container-fluid
-      .navbar-header
-        a(class="navbar-brand" href="/")=websiteName
-
-      button(class="navbar-toggler" type="button" 
-          data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" 
-          aria-controls="navbarNavAltMarkup" aria-expanded="false" 
-          aria-label="Toggle navigation")
-        span(class="navbar-toggler-icon")
-
-      div(class="collapse navbar-collapse d-flex" id="navbarNavAltMarkup")
-        div(class="navbar-nav")
-          each page in pages
-              span(class="mt-2 " + page.icon )
-              if activePage == page.title
-                a(class="nav-link active"  aria-current="page" href=page.link)=page.title
-              else 
-                a(class="nav-link" href=page.link)=page.title
-
-        div(class="flex-fill")#Login_Container
+nav(class="navbar navbar-expand-lg navbar-dark bg-dark")
+  .container-fluid
+    a(class="navbar-brand" href="/")=websiteName
+    button(class="navbar-toggler" type="button" 
+        data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" 
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" 
+        aria-label="Toggle navigation")
+      span(class="navbar-toggler-icon")
+    div(class="collapse navbar-collapse" id="navbarNavAltMarkup")
+      div(class="navbar-nav")
+        each page in pages 
+          if activePage == page.title
+            a(class="nav-link active " + page.icon aria-current="page" href=page.link)=" " + page.title
+          else 
+            a(class="nav-link " + page.icon href=page.link)=" " + page.title
+      div(class="flex-fill")#Login_Container
           ul(class="nav list-inline  justify-content-end")
             li(class="nav-item p-1")
               button(class="bi bi-box-arrow-in-right btn btn-primary btn-sm")=" Login"
