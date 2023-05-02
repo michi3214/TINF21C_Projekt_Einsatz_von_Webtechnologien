@@ -16,7 +16,7 @@ const database_data = {
 			}
 		},
 		tbl_user:{
-			name:"tbl_content",
+			name:"tbl_user",
 			column:{
 				id: "id_user",
 				name: "user_name",

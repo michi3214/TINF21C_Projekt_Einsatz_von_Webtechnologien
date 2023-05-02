@@ -70,8 +70,30 @@ async function delete_content_from_database (){
 	
 }
 
-//TODO implement function and docstring
+
+/**
+ * Load all datas for the users
+ *
+ * @async
+ * @returns {array}
+ */
 async function load_user_from_database (){
+	const tbl_name_user = DATABASE_CONSTANTS.tables.tbl_user.name;
+	const user = await _load_from_database (tbl_name_user);
+	return user;
+}
+
+/**
+ * 
+ */
+async function get_user_name(id){
+	const users = await load_user_from_database();
+	for (const user of users){
+		if(user[DATABASE_CONSTANTS.tables.tbl_user.column.id] === id){
+			return user[DATABASE_CONSTANTS.tables.tbl_user.column.name];
+		}
+	}
+	return ""; 
 }
 
 //TODO implement function and docstring
@@ -91,5 +113,6 @@ module.exports =  {
 	delete_content_from_database,
 	load_user_from_database,
 	add_user_to_database,
-	delete_user_from_database
+	delete_user_from_database,
+	get_user_name
 };

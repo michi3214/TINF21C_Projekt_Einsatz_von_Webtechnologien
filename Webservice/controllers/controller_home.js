@@ -4,7 +4,7 @@ const HomeModel = require("./../models/model_home");
 
 //for home page
 async function getPage(req, res){
-	const contents = await HomeModel.getContent();
+	const contents = await HomeModel.getTeaser();
 	res.render("view_home", {
 		tabTitle:"Blog",
 		headline: "Home",
