@@ -1,10 +1,11 @@
 extends common\layout
 
 block content 
-    each content in contents
-        div(class="m-4")
-            div(class="card m-2")
-                div(class="card-body")
-                    div(class="card-title border-bottom")=content.headline
-                    div(class="card-text mb-2")=content.content
-                    a(class="btn btn-primary" href="/")="Read article from " + content.author
+    div(class="container")
+        each content in contents
+            div(class="m-4")
+                div(class="card m-2")
+                    div(class="card-body")
+                        div(class="card-title border-bottom")=content.headline
+                        div(class="card-text mb-2")=content.content
+                        a(class="btn btn-primary" href="/")="Read article from " + content.author
