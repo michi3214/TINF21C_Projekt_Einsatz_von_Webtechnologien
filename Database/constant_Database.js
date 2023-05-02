@@ -31,4 +31,4 @@ const database_data = {
 };
 
 
-module.exports = database_data;
+module.exports = { database_data };

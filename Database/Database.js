@@ -2,8 +2,7 @@
  * This script implement all functions for connection to database. 
 */
 const mysql = require("mysql2/promise");
-const DATABASE = require("constant_Database");
-const { database } = require("./constant_Database");
+const DATABASE_CONS = require("./constant_Database").database_data;
 
 
 /** 
@@ -13,7 +12,7 @@ const { database } = require("./constant_Database");
  * @returns {mysql.Connection} connection
  */
 async function _create_Connection(){
-	return await mysql.createConnection({host: DATABASE.host, user:DATABASE.user , database: DATABASE.database});
+	return await mysql.createConnection({host: DATABASE_CONS.host, user:DATABASE_CONS.user , database: DATABASE_CONS.database});
 }
 
 
@@ -48,7 +47,7 @@ async function _insert_to_database(tbl_name,columns ,content){
 }
 
 async function load_content_from_database (){
-	const tbl_name_content = database.tbl_names.tbl_content;
+	const tbl_name_content = DATABASE_CONS.tbl_names.tbl_content;
 	return _load_from_database (tbl_name_content);
 }
 

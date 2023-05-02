@@ -1,4 +1,4 @@
 user_name; user_password; salt; user_privilege_read;user_privilege_update;user_privilege_delete
 #Generated 25.04.2023;;
 admin;admin;1234;1;1;1
-user1;user1;12345;;;
+user1;user1;12345;1;0;0
