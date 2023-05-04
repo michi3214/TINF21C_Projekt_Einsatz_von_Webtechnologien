@@ -12,6 +12,7 @@ const DATABASE_CONSTANTS = require("./constant_Database").database_data;
  * @returns {mysql.Connection} connection
  */
 async function _create_Connection(){
+	// TODO: Should only be done one time at start of application not every request  
 	return await mysql.createConnection({host: DATABASE_CONSTANTS.host, user:DATABASE_CONSTANTS.user , database: DATABASE_CONSTANTS.database});
 }
 
