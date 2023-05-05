@@ -1,0 +1,11 @@
+extends common\layout
+
+block content 
+    span=data
+    if data === undefined
+        h3  Internal server error
+    else
+        div="Author: " + data.author
+        div="Modified at: " + data.modified
+        div="Created at: " + data.created
+        div=data.content

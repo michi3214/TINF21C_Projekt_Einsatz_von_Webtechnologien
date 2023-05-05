@@ -8,27 +8,21 @@ const Database = require("./../../Database/Database");
  * @returns {array} - Each Content is in an JSON-Object 
  */
 async function getTeaser(){
+	const teaserLength = 200;
 	const contents = await Database.load_content_from_database();
-	const result = [];
-	//TODO: get username for author id
-	for (const content of contents){
-		let teaser = "";
-		if(content.content.length > 25){
-			teaser = content.content.substring(0,25) + "...";
-		}else {
-			teaser = content.content;
+	if (typeof contents === "undefined"){
+		return;
+	} else {
+		for (const content of contents){
+			if(content.content.length > teaserLength){
+				content.content = content.content.substring(0,teaserLength) + "...";
+			}
 		}
-		const author = await Database.get_user_name(content.id_author);
-		result.push({
-			id: content.id_content,
-			headline: content.headline,
-			content : teaser,
-			modified: content.modify_timestamp,
-			created: content.creation_timestamp,
-			author: author
-		});
+		return contents;
+
 	}
-	return result;
+	//TODO: get username for author id
+	
 }
 
 module.exports = {getTeaser};

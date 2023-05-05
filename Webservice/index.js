@@ -13,9 +13,13 @@ app.set("view engine", "pug");
 
 //Routes
 app.use("/", require("./router/router_user"));
+app.use("/content", require("./router/router_content"));
 
 //Page not Found
-app.use(errorController.getPage);
+app.use("/error404", errorController.getError404);
+app.use("/error403", errorController.getError403);
+app.use("/error500", errorController.getError500);
+app.use(errorController.getError404);
 
 
 
