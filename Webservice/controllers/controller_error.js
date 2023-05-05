@@ -1,7 +1,14 @@
 const pages = require("../constant").pages;
 const websiteName = require("../constant").websiteName;
 
-// page not found 
+
+/**
+ * Render page not found 
+ *
+ * @async
+ * @param {HTTP request} req
+ * @param {HTTP response} res
+ */
 async function getError404 (req, res){
 	res.status(404).render("error", {
 		tabTitle:"Blog - Not found",
@@ -12,7 +19,13 @@ async function getError404 (req, res){
 	} );
 }
 
-// forbidden
+/**
+ * Render page for forbidden interaction
+ *
+ * @async
+ * @param {HTTP request} req
+ * @param {HTTP response} res
+ */
 async function getError403 (req, res){
 	res.status(403).render("error", {
 		tabTitle:"Blog - Forbidden",
@@ -23,7 +36,13 @@ async function getError403 (req, res){
 	} );
 }
 
-// internal server error
+/**
+ * Render page for internal server error
+ *
+ * @async
+ * @param {HTTP request} req
+ * @param {HTTP response} res
+ */
 async function getError500 (req, res){
 	res.status(500).render("error", {
 		tabTitle:"Blog - Internal Server Error",

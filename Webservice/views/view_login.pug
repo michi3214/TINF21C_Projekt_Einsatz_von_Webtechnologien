@@ -1,0 +1,16 @@
+extends common\layout
+
+block content 
+    form
+        div(class="container w-50 p-2")
+            div(class="row p-2")
+                div(class="col-3 ")
+                    label(for="usernameInput")="Username:"
+                div(class="col-md-auto")
+                    input(type="text" class="form-control" id="usernameInput" placeholder="Username")
+            div(class="row p-2")
+                div(class="col-3 text-start")
+                    label(for="passwordInput")="Password:"
+                div(class="col-md-auto")
+                    input(type="password" class="form-control" id="passwordInput" placeholder="Password")
+        input(type="submit" class="btn btn-primary mt-2")

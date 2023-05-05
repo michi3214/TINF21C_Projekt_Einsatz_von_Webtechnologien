@@ -1,9 +1,16 @@
 const pages = require("../constant").pages;
 const websiteName = require("../constant").websiteName;
 
-//for home page
-const getPage = (req, res) => {
-	res.render("view_userConfig", {
+
+
+/**
+ * Render page for User configuration 
+ *
+ * @param {HTTP request} req
+ * @param {HTTP response} res
+ */
+async function  getPage(req, res){
+	res.render("view_configuration", {
 		tabTitle:"Blog-Einstellungen",
 		headline: "Einstellungen",
 		pages: pages,
@@ -11,7 +18,7 @@ const getPage = (req, res) => {
 		activePage: "Einstellungen"
 
 	} );
-};
+}
 
 module.exports =  {
 	getPage,

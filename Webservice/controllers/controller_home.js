@@ -2,7 +2,14 @@ const pages = require("../constant").pages;
 const websiteName = require("../constant").websiteName;
 const HomeModel = require("./../models/model_home");
 
-//for home page
+
+/**
+ * Render home page
+ *
+ * @async
+ * @param {HTTP request} req
+ * @param {HTTP response} res
+ */
 async function getPage(req, res){
 	const contents = await HomeModel.getTeaser();
 	if(typeof contents === "undefined"){

@@ -1,9 +1,24 @@
-const modelUserManagement = require("../models/model_userManagement");
+const pages = require("../constant").pages;
+const websiteName = require("../constant").websiteName;
 
-exports.getPage = (req, res, next) => {
-	res.render("view_userManagement", {
-		tabTitle: "Nutzer Management",
-		pageTitle: "Nutzer Management",
-		path: "/admin/UserManagement"
-	});
+/**
+ * Render page for User management 
+ *
+ * @param {HTTP request} req
+ * @param {HTTP response} res
+ */
+async function  getPage(req, res){
+	res.render("view_user_Management", {
+		tabTitle:"Benutzerverwaltung",
+		headline: "Benutzerverwaltung",
+		pages: pages,
+		websiteName: websiteName,
+		activePage: "Benutzerverwaltung"
+
+	} );
+}
+
+module.exports =  {
+	getPage,
 };
+

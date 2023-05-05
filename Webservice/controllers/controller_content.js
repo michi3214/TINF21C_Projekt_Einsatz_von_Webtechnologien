@@ -2,9 +2,17 @@ const pages = require("../constant").pages;
 const websiteName = require("../constant").websiteName;
 const ContentModel = require("./../models/model_content");
 
-//for home page
+
+/**
+ * Render page to read full post
+ *
+ * @async
+ * @param {HTTP request} req
+ * @param {HTTP response} res
+ */
 async function getRead(req, res){
 	const content = await ContentModel.getPost(req.params.id);
+	console.log("get id:" + req.params.id + "content: " + content);
 	if(typeof content === "undefined"){
 		res.redirect("/error500");
 	}

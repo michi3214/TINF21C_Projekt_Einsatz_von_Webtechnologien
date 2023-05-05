@@ -3,20 +3,18 @@ const websiteName = require("../constant").websiteName;
 
 
 /**
- * Render About page
+ * Render login page
  *
  * @async
  * @param {HTTP request} req
  * @param {HTTP response} res
  */
 async function getPage(req, res){
-	res.render("view_about", {
-		tabTitle:"Blog-Impressum",
-		headline: "Impressum",
+	res.render("view_login", {
+		tabTitle:"Blog-Login",
+		headline: "Login",
 		pages: pages,
-		websiteName: websiteName,
-		activePage: "Impressum"
-
+		websiteName: websiteName
 	} );
 }
 
