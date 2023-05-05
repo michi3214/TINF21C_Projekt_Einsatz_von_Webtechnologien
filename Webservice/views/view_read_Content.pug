@@ -1,11 +1,13 @@
 extends common\layout
 
 block content 
-    span=data
-    if data === undefined
-        h3  Internal server error
-    else
-        div="Author: " + data.author
-        div="Modified at: " + data.modified
-        div="Created at: " + data.created
-        div=data.content
+    div(class="container border-bottom")
+        div(class="row")
+            div(class="col")="Last editor: " + data.author
+            div(class="col")="Edited on " + data.modified
+            div(class="col")="Created on " + data.created
+    div=data.content
+    div(class="d-flex justify-content-left")
+        button(onClick="history.go(-1)" type="button" class="btn  btn-secondary  ")
+            i(class="bi bi-skip-backward-circle-fill")
+            span=" Back"

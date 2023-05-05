@@ -46,16 +46,14 @@ async function load_content_from_database (){
 async function load_content_by_id(id){
 	try{
 		const content = await prisma.tbl_content.findUnique({ where: { id: parseInt(id) } });
-		console.log("Database: " + content);
-		return ;
-		/*{
+		return {
 			"id": 	     content.id,
 			"headline":  content.headline,
 			"content":   content.content,
 			"modified":  content.modify_timestamp,
 			"created":   content.creation_timestamp,
 			"author":    content.author_name
-		};*/
+		};
 	}catch(error){
 		console.error("Failed to load content from database");
 		console.error(error);

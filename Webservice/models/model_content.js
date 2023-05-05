@@ -9,7 +9,9 @@ const Database = require("./../../Database/Database");
  */
 async function getPost(id){
 	const post = await Database.load_content_by_id(id);
-	console.log("model: " + post);
+	console.log("model: " + JSON.stringify(post));
+	post.modified = post.modified.toDateString();
+	post.created = post.created.toDateString();
 	return post;
 }
 
