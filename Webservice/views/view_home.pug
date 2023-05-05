@@ -11,4 +11,5 @@ block content
                         div(class="card-body")
                             div(class="card-title border-bottom")=content.headline
                             div(class="card-text mb-2")=content.content
-                            a(class="btn btn-primary" href="/content/read/" + content.id)="Read full article"
+                            if content.teaser 
+                                a(class="btn btn-primary" href="/content/read/" + content.id)="Read full article"

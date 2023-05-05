@@ -14,8 +14,10 @@ async function getTeaser(){
 		return;
 	} else {
 		for (const content of contents){
+			content.teaser = false;
 			if(content.content.length > teaserLength){
 				content.content = content.content.substring(0,teaserLength) + "...";
+				content.teaser = true;
 			}
 		}
 		return contents;
