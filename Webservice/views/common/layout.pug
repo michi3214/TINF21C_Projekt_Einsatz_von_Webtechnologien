@@ -5,7 +5,7 @@ html(data-bs-theme="dark")
         
     body
         include navbar/navbar.pug
-        div(class="container text-center p-3")#content_container
+        div(class="container content-center p-2" style="min-height: 80vh;")#content_container
             h2(class="border-bottom p-2")=headline
             block content
         include footer/footer.pug
