@@ -13,7 +13,12 @@ async function  getPage(req, res){
 		headline: "Benutzerverwaltung",
 		pages: pages,
 		websiteName: websiteName,
-		activePage: "Benutzerverwaltung"
+		activePage: "Benutzerverwaltung",
+		user:{
+			 login:false,
+			name:"Hallo",
+			privilege:1 // use privileges from constants
+		}
 
 	} );
 }

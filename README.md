@@ -1,14 +1,12 @@
 # TINF21C_Projekt_Einsatz_von_Webtechnologien
 Dies ist ein Blog. Der Blog ist mit Node.JS und Express umgesetzt. 
-# Installation
-## Konfiguration der Datenbank
-   Die Skripte im Ordner [Installation](https://github.com/michi3214/TINF21C_Projekt_Einsatz_von_Webtechnologien/tree/main/Installation) gefunden werden. Mit dem Skript "create_database.sql" wird eine neue Datenbank mit dem Namen "DB_TINF21C_Webtechnologien_Blog" generiert. Zudem werden alle benötigten Tabellen angelegt und die CSV-Dateien importiert. 
-   Bitte beachten Sie hierbei, dass der Dateipfad gegebenenfalls an ihre Umgebung angepasst werden muss. Dies kann in den Zeilen 33 und 43 erfolgen.  
+# Installation 
 
 ## Installation der npm-Pakete
    Öffnen Sie im Terminal den Dateipfad des Projektes und führen Sie den Befehle: `npm install` aus. Nun werden alle benötigten Pakete geladen. 
+
 # Nutzen der Webseite
-## Starten des Webserivce 
+## Starten des Webserver
    Als nächstes kann der Webserver gestartet werden. Dazu führen Sie den Befehl: `npm start` aus. 
 ## Aufrufen
    Nun kann der Blog unter [http://localhost:3000/](http://localhost:3000/) aufgerufen werden. 

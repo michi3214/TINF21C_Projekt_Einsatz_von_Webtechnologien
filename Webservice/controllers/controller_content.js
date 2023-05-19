@@ -22,7 +22,12 @@ async function getRead(req, res){
 			headline: content.headline,
 			pages: pages,
 			websiteName: websiteName,
-			data: content
+			data: content,
+			user:{
+				 login:false,
+				name:"Hallo",
+				privilege:1 // use privileges from constants
+			}
 		} );
 	}
 	
@@ -34,7 +39,12 @@ async function getUpdate(req, res){
 		tabTitle:"Blog-" + content.headline,
 		headline: content.headline,
 		pages: pages,
-		websiteName: websiteName
+		websiteName: websiteName,
+		user:{
+			login:false,
+			name:"Hallo",
+			privilege:1 // use privileges from constants
+		}
 	} );
 }
 
@@ -44,7 +54,12 @@ async function deletePost(req, res){
 		tabTitle:"Blog-" + content.headline,
 		headline: content.headline,
 		pages: pages,
-		websiteName: websiteName
+		websiteName: websiteName,
+		user:{
+			 login:false,
+			name:"Hallo",
+			privilege:1 // use privileges from constants
+		}
 	} );
 }
 
@@ -54,7 +69,12 @@ async function postUpdate(req, res){
 		tabTitle:"Blog-" + content.headline,
 		headline: content.headline,
 		pages: pages,
-		websiteName: websiteName
+		websiteName: websiteName,
+		user:{
+			 login:false,
+			name:"Hallo",
+			privilege:1 // use privileges from constants
+		}
 	} );
 }
 

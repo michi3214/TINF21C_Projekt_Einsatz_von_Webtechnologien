@@ -9,13 +9,12 @@ nav(class="navbar navbar-expand-lg navbar-dark border-bottom bg-dark")
     div(class="collapse navbar-collapse" id="navbarNavAltMarkup")
       div(class="navbar-nav")
         each page in pages 
-          if activePage == page.title
-            a(class="nav-link active " + page.icon aria-current="page" href=page.link)=" " + page.title
-          else 
-            a(class="nav-link " + page.icon href=page.link)=" " + page.title
-      div(class="flex-fill")#Login_Container
-          ul(class="nav list-inline  justify-content-end")
-            li(class="nav-item p-1")
-              button(class="bi bi-box-arrow-in-right btn btn-primary btn-sm" OnClick="location.href='/login'")=" Login"
-            li(class="nav-item p-1")
-              button(class="btn btn-primary btn-sm")="Registrieren"
+          if user.privilege >= page.privilege
+            if activePage == page.title 
+              a(class="nav-link active " + page.icon aria-current="page" href=page.link)=" " + page.title
+            else
+              a(class="nav-link " + page.icon href=page.link)=" " + page.title
+      if user.login == true 
+        include LoginDiv/logout_div.pug
+      else 
+        include LoginDiv/login_div.pug

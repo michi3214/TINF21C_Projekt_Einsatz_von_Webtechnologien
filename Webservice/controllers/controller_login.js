@@ -14,10 +14,20 @@ async function getPage(req, res){
 		tabTitle:"Blog-Login",
 		headline: "Login",
 		pages: pages,
-		websiteName: websiteName
+		websiteName: websiteName,
+		user:{
+			 login:false,
+			name:"Hallo",
+			privilege:1 // use privileges from constants
+		}
 	} );
+}
+
+async function handle_login(req, res){
+	res.redirect("/");
 }
 
 module.exports =  {
 	getPage,
+	handle_login
 };

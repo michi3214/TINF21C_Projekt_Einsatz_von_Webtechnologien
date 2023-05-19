@@ -15,8 +15,12 @@ async function getPage(req, res){
 		headline: "Impressum",
 		pages: pages,
 		websiteName: websiteName,
-		activePage: "Impressum"
-
+		activePage: "Impressum",
+		user:{
+			login:false,
+			name:"Hallo",
+			privilege:1 // use privileges from constants
+		}
 	} );
 }
 

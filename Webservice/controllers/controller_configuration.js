@@ -15,7 +15,12 @@ async function  getPage(req, res){
 		headline: "Einstellungen",
 		pages: pages,
 		websiteName: websiteName,
-		activePage: "Einstellungen"
+		activePage: "Einstellungen",
+		user:{
+			login:false,
+			name:"Hallo",
+			privilege:1 // use privileges from constants
+		}
 
 	} );
 }

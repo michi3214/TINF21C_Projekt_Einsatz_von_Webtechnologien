@@ -22,7 +22,12 @@ async function getPage(req, res){
 			pages: pages,
 			websiteName: websiteName,
 			activePage: "Home",
-			contents:contents
+			contents:contents,
+			user:{
+				login:false,
+				name:"Hallo",
+				privilege:1 // use privileges from constants
+			}
 	
 		} );
 	}

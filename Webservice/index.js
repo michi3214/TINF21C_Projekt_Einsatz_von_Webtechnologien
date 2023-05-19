@@ -12,7 +12,8 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
 //Routes
-app.use("/", require("./router/router_user"));
+app.use("/", require("./router/router_pages"));
+app.use("/user", require("./router/router_user"));
 app.use("/content", require("./router/router_content"));
 
 //Page not Found

@@ -17,9 +17,7 @@ model tbl_author {
   alias String @unique
   password String
   salt String
-  privilege_user_management Boolean
-  privilege_update Boolean
-  privilege_delete Boolean
+  privilege Int
   posts tbl_content[]
 }
 

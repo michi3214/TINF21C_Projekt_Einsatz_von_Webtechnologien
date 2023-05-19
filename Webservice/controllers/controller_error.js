@@ -15,7 +15,12 @@ async function getError404 (req, res){
 		headline: "Page not found!",
 		pages: pages,
 		websiteName: websiteName,
-		message: "Sorry page could not be found."
+		message: "Sorry page could not be found.",
+		user:{
+			login:false,
+			name:"Hallo",
+			privilege:1 // use privileges from constants
+		}
 	} );
 }
 
@@ -32,7 +37,12 @@ async function getError403 (req, res){
 		headline: "Forbidden interaction",
 		pages: pages,
 		websiteName: websiteName,
-		message: "You are not allowed to do that! Please check your login."
+		message: "You are not allowed to do that! Please check your login.",
+		user:{
+			login:false,
+			name:"Hallo",
+			privilege:1 // use privileges from constants
+		}
 	} );
 }
 
@@ -49,7 +59,12 @@ async function getError500 (req, res){
 		headline: "Internal server error",
 		pages: pages,
 		websiteName: websiteName,
-		message: "Something went wrong. Internal Server Error"
+		message: "Something went wrong. Internal Server Error",
+		user:{
+			login:false,
+			name:"Hallo",
+			privilege:1 // use privileges from constants
+		}
 	} );
 }
 
