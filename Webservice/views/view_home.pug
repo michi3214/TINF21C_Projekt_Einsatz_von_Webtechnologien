@@ -1,15 +1,4 @@
 extends common\layout
 
-block content 
-    div(class="container")
-        if contents.length < 1
-            h3  Sorry, no posts could be found.
-        else
-            each content in contents
-                div(class="m-4")
-                    div(class="card m-2")
-                        div(class="card-body")
-                            div(class="card-title border-bottom")=content.headline
-                            div(class="card-text mb-2")=content.content
-                            if content.teaser 
-                                a(class="btn btn-primary" href="/content/read/" + content.id)="Read full article"
+block content
+    p="Home Bereich Teaser des Blogs (erste Beiträge, Anzahl )"

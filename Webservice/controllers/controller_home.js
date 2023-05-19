@@ -11,26 +11,19 @@ const HomeModel = require("./../models/model_home");
  * @param {HTTP response} res
  */
 async function getPage(req, res){
-	const contents = await HomeModel.getTeaser();
-	if(typeof contents === "undefined"){
-		res.redirect("/error500");
-	}
-	else{
-		res.render("view_home", {
-			tabTitle:"Blog",
-			headline: "Home",
-			pages: pages,
-			websiteName: websiteName,
-			activePage: "Home",
-			contents:contents,
-			user:{
-				login:false,
-				name:"Hallo",
-				privilege:1 // use privileges from constants
-			}
+	res.render("view_home", {
+		tabTitle:"Blog-Home",
+		headline: "Home",
+		pages: pages,
+		websiteName: websiteName,
+		activePage: "Home",
+		user:{
+			login:false,
+			name:"Hallo",
+			privilege:1 // use privileges from constants
+		}
 	
-		} );
-	}
+	} );
 }
 
 module.exports =  {

@@ -6,6 +6,7 @@ const privileges = {
 
 const pages=[
 	{title:"Home", link:"/",  icon:"bi bi-house", privilege:privileges["basic"]},
+	{title:"Blog", link:"/blog",  icon:"bi bi-journal", privilege:privileges["basic"]},
 	{title:"Einstellungen", link:"/user/configuration",  icon:"bi bi-tools", privilege:privileges["user"]},
 	{title:"Benutzerverwaltung", link:"/user/userManagement",  icon:"", privilege:privileges["admin"]},
 	{title:"Impressum", link:"/about", icon:"bi bi-person-lines-fill", privilege:privileges["basic"]},

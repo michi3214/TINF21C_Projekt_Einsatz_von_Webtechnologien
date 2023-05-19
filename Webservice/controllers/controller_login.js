@@ -24,6 +24,7 @@ async function getPage(req, res){
 }
 
 async function handle_login(req, res){
+	console.log("User want to log in");
 	res.redirect("/");
 }
 
