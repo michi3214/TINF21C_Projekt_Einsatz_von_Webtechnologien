@@ -24,11 +24,7 @@ async function getRead(req, res){
 			pages: pages,
 			websiteName: websiteName,
 			data: content,
-			user:{
-				 login:false,
-				name:"Hallo",
-				privilege:1 // use privileges from constants
-			}
+			user: await authentication.check_login(req.cookies)
 		} );
 	}
 	
@@ -52,11 +48,7 @@ async function deletePost(req, res){
 		headline: content.headline,
 		pages: pages,
 		websiteName: websiteName,
-		user:{
-			 login:false,
-			name:"Hallo",
-			privilege:1 // use privileges from constants
-		}
+		user: await authentication.check_login(req.cookies)
 	} );
 }
 
@@ -67,11 +59,7 @@ async function postUpdate(req, res){
 		headline: content.headline,
 		pages: pages,
 		websiteName: websiteName,
-		user:{
-			 login:false,
-			name:"Hallo",
-			privilege:1 // use privileges from constants
-		}
+		user: await authentication.check_login(req.cookies)
 	} );
 }
 

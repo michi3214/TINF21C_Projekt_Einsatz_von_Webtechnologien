@@ -16,11 +16,7 @@ async function  getPage(req, res){
 		pages: pages,
 		websiteName: websiteName,
 		activePage: "Benutzerverwaltung",
-		user:{
-			 login:false,
-			name:"Hallo",
-			privilege:1 // use privileges from constants
-		}
+		user: await authentication.check_login(req.cookies)
 
 	} );
 }

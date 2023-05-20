@@ -25,7 +25,7 @@ async function handle_login(req, res){
 	const password = req.body.passwordInput;
 	try{
 		const token = await authentication.login(username, password);
-		
+
 		res.cookie(  // TODO: should be expired too
 			"access_token", 
 			token, 
@@ -36,7 +36,7 @@ async function handle_login(req, res){
 		).status(200).redirect("/");
 	}catch(error){
 		// TODO: wrong user credentials should not be an server error
-		console.log(error.msg);
+		console.error(error);
 		res.redirect("/error500");
 	}
 }

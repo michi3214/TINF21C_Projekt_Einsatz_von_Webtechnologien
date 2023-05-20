@@ -12,11 +12,11 @@ const [secret_key, expireTime] = _get_configurations();
 /**
  * check for expired users in the users array and delete them
  */
-const check_period = 1;
+const check_period = 5;
 const check_interval = check_period * 60 * 1000;
 setInterval(() => {
 	for (let i = 0; i < users.length; i++) { 
-		if (new Date().getTime() - new Date(users[i].issued_on).getTime() > 1){ // expireTime
+		if (new Date().getTime() - new Date(users[i].issued_on).getTime() > expireTime){ 
 			users.splice(i);
 		}
 	}
@@ -79,9 +79,9 @@ async function _add_user(username, privilege){
  */
 async function login(username, password){
 	const user = await Database.load_user_from_database(username);
-	const database_password = user.password;
+	const hash_password = user.hash_password;
 	const privilege = user.privilege;
-	if (await BCRYPT.compare(password, database_password)){
+	if (await BCRYPT.compare(password, hash_password)){
 		return await _add_user(username, privilege);
 	}else{
 		throw new Error("Wrong user credentials"); // TODO: handle error
