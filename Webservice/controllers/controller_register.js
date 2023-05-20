@@ -1,7 +1,6 @@
 const pages = require("../../constant").pages;
 const websiteName = require("../../constant").websiteName;
 const authentication = require("../../Authentication/authentication");
-const authentication = require("../../Authentication/authentication");
 
 
 
@@ -28,7 +27,7 @@ async function handle_register(req, res){
 	const alias = req.body.aliasInput;
 	const token = await authentication.register(username, alias, password);
 	console.log("token set to: " + token);
-	res.cookie(
+	res.cookie( // TODO: should be expired too
 		"access_token", 
 		token, 
 		{

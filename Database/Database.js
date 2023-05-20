@@ -5,17 +5,8 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 
-
-
-
-// TODO: Add jsdoc
-async function _insert_to_database(tbl_name,columns ,content){
-}
-
-
-
 /**
- * Get all contents from database
+ * Get all contents (posts) from database
  *
  * @async
  * @returns {array} - All contents in JSON structure
@@ -43,6 +34,15 @@ async function load_content_from_database (){
 	}
 }
 
+
+
+
+/**
+ * Load a post from the database, which is specified by the id. 
+ *
+ * @async
+ * @param {number} id - content id
+ */
 async function load_content_by_id(id){
 	try{
 		const content = await prisma.tbl_content.findUnique({ where: { id: parseInt(id) } });
@@ -75,18 +75,40 @@ async function delete_content_from_database (){
 
 
 /**
- * Load all datas for the users
+ * Load specific information for given username
  *
  * @async
  * @returns {array}
  */
-async function load_user_from_database (){
+async function load_user_from_database (username){
+	try{
+		const user = await prisma.tbl_author.findUnique({ where: { name: username } });
+		return {
+			username: user.name,
+			alias: user.alias,
+			hash_password: user.password,
+			privilege: user.privilege
+		};
+	}catch(error){
+		console.error("Failed to load user: " + username + " from database");
+		console.error(error);
+		return;
+	}
 
 }
 
 
 
-//TODO implement function and docstring
+
+/**
+ * Add one user to the database
+ *
+ * @async
+ * @param {string} username
+ * @param {string} alias
+ * @param {string} privilege
+ * @param {string} password
+ */
 async function add_user_to_database (username, alias, privilege, password){
 	try{
 		await prisma.tbl_author.create({

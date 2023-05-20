@@ -25,7 +25,8 @@ async function handle_login(req, res){
 	const password = req.body.passwordInput;
 	try{
 		const token = await authentication.login(username, password);
-		res.cookie(
+		
+		res.cookie(  // TODO: should be expired too
 			"access_token", 
 			token, 
 			{
