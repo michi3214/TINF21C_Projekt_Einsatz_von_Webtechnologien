@@ -1,5 +1,6 @@
 const pages = require("../constant").pages;
 const websiteName = require("../constant").websiteName;
+const authentication = require("../../Authentication/authentication");
 
 
 /**
@@ -16,7 +17,7 @@ async function getPage(req, res){
 		pages: pages,
 		websiteName: websiteName,
 		user:{
-			 login:false,
+			login:false,
 			name:"Hallo",
 			privilege:1 // use privileges from constants
 		}
@@ -24,8 +25,14 @@ async function getPage(req, res){
 }
 
 async function handle_login(req, res){
-	console.log("User want to log in");
-	res.redirect("/");
+	const username = req.body.usernameInput;
+	const password = req.body.passwordInput;
+	try{
+		const token = await authentication.login(username, password);
+		res.status(200).redirect("/");
+	}catch(error){
+		res.redirect("/error500");
+	}
 }
 
 module.exports =  {

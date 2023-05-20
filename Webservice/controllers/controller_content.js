@@ -12,7 +12,6 @@ const ContentModel = require("./../models/model_content");
  */
 async function getRead(req, res){
 	const content = await ContentModel.getPost(req.params.id);
-	console.log("get id:" + req.params.id + "content: " + content);
 	if(typeof content === "undefined"){
 		res.redirect("/error500");
 	}

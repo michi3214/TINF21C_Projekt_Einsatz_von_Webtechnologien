@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@prisma/client": "^4.14.1",
+    "bcrypt": "^5.1.0",
     "bootstrap": "^5.3.0-alpha3",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",

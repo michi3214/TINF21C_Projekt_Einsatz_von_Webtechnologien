@@ -1,7 +1,7 @@
 extends common\layout
 
 block content 
-    form
+    form(method="POST")
         div(class="container")
             div(class="row p-2")
                 div(class="col-md-auto")
@@ -9,14 +9,14 @@ block content
             div(class="row p-2")
                 div(class="col-md-auto")
                 div(class="col")
-                    input(type="text" class="form-control" id="usernameInput" placeholder="Username")
+                    input(type="text" class="form-control" name="usernameInput" placeholder="Username" required)
             div(class="row p-2")
                 div(class="col-md-auto")
                     label(for="passwordInput")="Password:"
             div(class="row p-2")
                 div(class="col-md-auto")
                 div(class="col")
-                    input(type="password" class="form-control" id="passwordInput" placeholder="Password")
+                    input(type="password" class="form-control" name="passwordInput" placeholder="Password" required)
             div(class="row p-2 d-flex justify-content-center")
-                input(type="submit" class="btn btn-primary m-2 w-25 min-width-" value="Login")
+                input(type="submit" class="btn btn-primary m-2 w-25" value="Login")
                 input(type="reset"  class="btn btn-primary m-2 w-25" value="Reset")
