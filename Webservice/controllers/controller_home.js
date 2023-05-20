@@ -1,6 +1,8 @@
 const pages = require("../../constant").pages;
 const websiteName = require("../../constant").websiteName;
 const HomeModel = require("./../models/model_home");
+const authentication = require("../../Authentication/authentication");
+
 
 
 /**
@@ -17,11 +19,7 @@ async function getPage(req, res){
 		pages: pages,
 		websiteName: websiteName,
 		activePage: "Home",
-		user:{
-			login:false,
-			name:"Hallo",
-			privilege:1 // use privileges from constants
-		}
+		user: await authentication.check_login(req.cookies)
 	
 	} );
 }

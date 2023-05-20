@@ -1,5 +1,7 @@
 const pages = require("../../constant").pages;
 const websiteName = require("../../constant").websiteName;
+const authentication = require("../../Authentication/authentication");
+
 
 
 /**
@@ -16,11 +18,7 @@ async function getError404 (req, res){
 		pages: pages,
 		websiteName: websiteName,
 		message: "Sorry page could not be found.",
-		user:{
-			login:false,
-			name:"Hallo",
-			privilege:1 // use privileges from constants
-		}
+		user: await authentication.check_login(req.cookies)
 	} );
 }
 
@@ -38,11 +36,7 @@ async function getError403 (req, res){
 		pages: pages,
 		websiteName: websiteName,
 		message: "You are not allowed to do that! Please check your login.",
-		user:{
-			login:false,
-			name:"Hallo",
-			privilege:1 // use privileges from constants
-		}
+		user: await authentication.check_login(req.cookies)
 	} );
 }
 
@@ -60,11 +54,7 @@ async function getError500 (req, res){
 		pages: pages,
 		websiteName: websiteName,
 		message: "Something went wrong. Internal Server Error",
-		user:{
-			login:false,
-			name:"Hallo",
-			privilege:1 // use privileges from constants
-		}
+		user: await authentication.check_login(req.cookies)
 	} );
 }
 

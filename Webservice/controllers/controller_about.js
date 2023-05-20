@@ -17,7 +17,7 @@ async function getPage(req, res){
 		pages: pages,
 		websiteName: websiteName,
 		activePage: "Impressum",
-		user:authentication.check_login(req.cookies)
+		user: await authentication.check_login(req.cookies)
 	} );
 }
 

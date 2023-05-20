@@ -1,6 +1,8 @@
 const pages = require("../../constant").pages;
 const websiteName = require("../../constant").websiteName;
 const ContentModel = require("./../models/model_content");
+const authentication = require("../../Authentication/authentication");
+
 
 
 /**
@@ -39,11 +41,7 @@ async function getUpdate(req, res){
 		headline: content.headline,
 		pages: pages,
 		websiteName: websiteName,
-		user:{
-			login:false,
-			name:"Hallo",
-			privilege:1 // use privileges from constants
-		}
+		user: await authentication.check_login(req.cookies)
 	} );
 }
 

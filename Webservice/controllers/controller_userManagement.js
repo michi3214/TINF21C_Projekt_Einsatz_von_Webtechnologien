@@ -1,5 +1,7 @@
 const pages = require("../../constant").pages;
 const websiteName = require("../../constant").websiteName;
+const authentication = require("../../Authentication/authentication");
+
 
 /**
  * Render page for User management 
