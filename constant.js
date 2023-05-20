@@ -16,5 +16,8 @@ const websiteName = "Blog";
 
 
 
-module.exports = { pages: pages	,
-	websiteName: websiteName };
+module.exports = { 
+	pages: pages	,
+	websiteName: websiteName,
+	privileges: privileges
+};

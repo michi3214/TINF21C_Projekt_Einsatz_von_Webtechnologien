@@ -11,9 +11,9 @@ const authentication = require("../../Authentication/authentication");
  * @param {HTTP response} res
  */
 async function getPage(req, res){
-	res.render("view_login", {
-		tabTitle:"Blog-Login",
-		headline: "Login",
+	res.render("view_register", {
+		tabTitle:"Blog-Register",
+		headline: "Register",
 		pages: pages,
 		websiteName: websiteName,
 		user:{
@@ -24,27 +24,23 @@ async function getPage(req, res){
 	} );
 }
 
-async function handle_login(req, res){
+async function handle_register(req, res){
 	const username = req.body.usernameInput;
 	const password = req.body.passwordInput;
-	try{
-		const token = await authentication.login(username, password);
-		res.cookie(
-			"access_token", 
-			token, 
-			{
-				httpOnly: true,
-				secure: true,
-			}
-		).status(200).redirect("/");
-	}catch(error){
-		// TODO: wrong user credentials should not be an server error
-		console.log(error.msg);
-		res.redirect("/error500");
-	}
+	const alias = req.body.aliasInput;
+	const token = await authentication.register(username, alias, password);
+	console.log("token set to: " + token);
+	res.cookie(
+		"access_token", 
+		token, 
+		{
+			httpOnly: true,
+			secure: true,
+		}
+	).status(200).redirect("/");
 }
 
 module.exports =  {
 	getPage,
-	handle_login
+	handle_register
 };

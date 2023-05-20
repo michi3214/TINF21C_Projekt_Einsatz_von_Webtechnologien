@@ -6,8 +6,12 @@ const dotenv = require("dotenv");
 const express   = require("express");
 const app 	    = express();
 const path = require("path");
+const cookieParser = require("cookie-parser");
 
 const errorController = require(path.join(__dirname, "controllers", "controller_error.js"));
+
+// Module to work with cookies
+app.use(cookieParser());
 
 // Load global config from .env file
 dotenv.config();
@@ -33,5 +37,5 @@ app.use(errorController.getError404);
 
 
 
-const PORT = 3000;
+const PORT = parseInt(process.env.SERVER_PORT);
 app.listen(PORT, console.log("Server has started at port " + PORT));

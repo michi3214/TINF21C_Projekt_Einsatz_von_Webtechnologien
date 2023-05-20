@@ -87,7 +87,24 @@ async function load_user_from_database (){
 
 
 //TODO implement function and docstring
-async function add_user_to_database (){
+async function add_user_to_database (username, alias, privilege, password){
+	try{
+		await prisma.tbl_author.create({
+			data:{
+				name : username,
+				alias: alias,
+				password: password,
+				privilege: privilege
+			}
+		});
+		return 0;
+	}catch(err){
+		console.error("Can not add user: " + username);
+		console.error(String(err));
+		return {
+			msg: "Can not add user. Reason: " + String(err)
+		};
+	}
 	
 }
 

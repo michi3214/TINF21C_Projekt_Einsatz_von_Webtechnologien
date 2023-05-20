@@ -3,6 +3,7 @@ const router = express.Router();
 
 // Controllers
 const controllerLogin = require("../controllers/controller_login.js");
+const controllerRegister = require("../controllers/controller_register.js");
 const controllerConfiguration = require("../controllers/controller_configuration.js");
 const controllerUserManagement = require("../controllers/controller_userManagement.js");
 
@@ -10,7 +11,8 @@ const controllerUserManagement = require("../controllers/controller_userManageme
 router.get("/login", controllerLogin.getPage);
 router.post("/login", controllerLogin.handle_login);
 
-router.get("/register", controllerLogin.getPage);
+router.get("/register", controllerRegister.getPage);
+router.post("/register", controllerRegister.handle_register);
 
 
 router.get("/configuration", controllerConfiguration.getPage);

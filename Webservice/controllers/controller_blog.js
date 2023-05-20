@@ -1,5 +1,5 @@
-const pages = require("../constant").pages;
-const websiteName = require("../constant").websiteName;
+const pages = require("../../constant").pages;
+const websiteName = require("../../constant").websiteName;
 const BlogModel = require("./../models/model_blog");
 
 

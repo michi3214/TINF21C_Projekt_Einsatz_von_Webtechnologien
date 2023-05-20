@@ -16,7 +16,6 @@ model tbl_author {
   name String @id 
   alias String @unique
   password String
-  salt String
   privilege Int
   posts tbl_content[]
 }
