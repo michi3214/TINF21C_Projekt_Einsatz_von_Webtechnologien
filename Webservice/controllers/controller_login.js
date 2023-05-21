@@ -25,13 +25,12 @@ async function handle_login(req, res){
 	const password = req.body.passwordInput;
 	try{
 		const token = await authentication.login(username, password);
-
-		res.cookie(  // TODO: should be expired too
+		res.cookie(  
 			"access_token", 
 			token, 
 			{
 				httpOnly: true,
-				secure: true,
+				secure: true
 			}
 		).status(200).redirect("/");
 	}catch(error){

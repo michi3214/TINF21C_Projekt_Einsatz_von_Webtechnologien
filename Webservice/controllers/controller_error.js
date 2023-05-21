@@ -12,13 +12,20 @@ const authentication = require("../../Authentication/authentication");
  * @param {HTTP response} res
  */
 async function getError404 (req, res){
+	let user = {};
+	try{
+		user =  await authentication.check_login(req.cookies);
+	}catch(err){
+		user = await authentication.get_basic_user();
+		res.clearCookie("access_token");
+	}
 	res.status(404).render("error", {
 		tabTitle:"Blog - Not found",
 		headline: "Page not found!",
 		pages: pages,
 		websiteName: websiteName,
 		message: "Sorry page could not be found.",
-		user: await authentication.check_login(req.cookies)
+		user: user
 	} );
 }
 
@@ -30,13 +37,20 @@ async function getError404 (req, res){
  * @param {HTTP response} res
  */
 async function getError403 (req, res){
+	let user = {};
+	try{
+		user =  await authentication.check_login(req.cookies);
+	}catch(err){
+		user = await authentication.get_basic_user();
+		res.clearCookie("access_token");
+	}
 	res.status(403).render("error", {
 		tabTitle:"Blog - Forbidden",
 		headline: "Forbidden interaction",
 		pages: pages,
 		websiteName: websiteName,
 		message: "You are not allowed to do that! Please check your login.",
-		user: await authentication.check_login(req.cookies)
+		user: user
 	} );
 }
 
@@ -48,13 +62,20 @@ async function getError403 (req, res){
  * @param {HTTP response} res
  */
 async function getError500 (req, res){
+	let user = {};
+	try{
+		user =  await authentication.check_login(req.cookies);
+	}catch(err){
+		user = await authentication.get_basic_user();
+		res.clearCookie("access_token");
+	}
 	res.status(500).render("error", {
 		tabTitle:"Blog - Internal Server Error",
 		headline: "Internal server error",
 		pages: pages,
 		websiteName: websiteName,
 		message: "Something went wrong. Internal Server Error",
-		user: await authentication.check_login(req.cookies)
+		user: user
 	} );
 }
 

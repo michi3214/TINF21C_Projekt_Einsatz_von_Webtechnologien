@@ -1,4 +1,4 @@
-const Database = require("./../../Database/Database");
+const Database = require("./../../Database/database");
 
 
 /**

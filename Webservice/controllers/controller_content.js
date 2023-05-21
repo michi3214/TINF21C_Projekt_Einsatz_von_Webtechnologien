@@ -18,13 +18,20 @@ async function getRead(req, res){
 		res.redirect("/error500");
 	}
 	else{
+		let user = {};
+		try{
+			user =  await authentication.check_login(req.cookies);
+		}catch(err){
+			user = await authentication.get_basic_user();
+			res.clearCookie("access_token");
+		}
 		res.render("view_read_Content", {
 			tabTitle:"Blog-" + content.headline,
 			headline: content.headline,
 			pages: pages,
 			websiteName: websiteName,
 			data: content,
-			user: await authentication.check_login(req.cookies)
+			user: user
 		} );
 	}
 	
@@ -32,6 +39,7 @@ async function getRead(req, res){
 
 async function getUpdate(req, res){
 	const content = ContentModel.getPost(req.params.id);
+	// TODO Implment
 	res.render("view_about", {
 		tabTitle:"Blog-" + content.headline,
 		headline: content.headline,
@@ -42,6 +50,7 @@ async function getUpdate(req, res){
 }
 
 async function deletePost(req, res){
+	// TODO Implment
 	const content = ContentModel.getPost(req.params.id);
 	res.render("view_about", {
 		tabTitle:"Blog-" + content.headline,
@@ -53,6 +62,7 @@ async function deletePost(req, res){
 }
 
 async function postUpdate(req, res){
+	// TODO Implment
 	const content = ContentModel.getPost(req.params.id);
 	res.render("view_about", {
 		tabTitle:"Blog-" + content.headline,

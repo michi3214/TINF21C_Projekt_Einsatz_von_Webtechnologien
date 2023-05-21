@@ -13,13 +13,20 @@ const authentication = require("../../Authentication/authentication");
  * @param {HTTP response} res
  */
 async function getPage(req, res){
+	let user = {};
+	try{
+		user =  await authentication.check_login(req.cookies);
+	}catch(err){
+		user = await authentication.get_basic_user();
+		res.clearCookie("access_token");
+	}
 	res.render("view_home", {
 		tabTitle:"Blog-Home",
 		headline: "Home",
 		pages: pages,
 		websiteName: websiteName,
 		activePage: "Home",
-		user: await authentication.check_login(req.cookies)
+		user: user
 	
 	} );
 }

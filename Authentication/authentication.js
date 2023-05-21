@@ -1,8 +1,9 @@
 const JWT = require("jsonwebtoken");
 const BCRYPT = require("bcrypt");
 
-const Database = require("./../Database/Database");
-const privileges = require("../constant").privileges;
+const Database = require("./../Database/database");
+const Privileges = require("../constant").privileges;
+const Errors = require("../Errors/error");
 
 const users = [];
 const [secret_key, expireTime] = _get_configurations();
@@ -123,7 +124,7 @@ async function logout(cookies){
  * @returns {JsonWebToken | string}
  */
 async function register(username, alias, password){
-	const privilege = privileges["user"];
+	const privilege = Privileges["user"];
 	const salt = await BCRYPT.genSalt(15);
 	const password_hash = await BCRYPT.hash(password, salt);
 	const result = await Database.add_user_to_database(username,alias,privilege,password_hash);
@@ -138,6 +139,18 @@ async function register(username, alias, password){
 
 
 
+/**
+ * Function to define not logged in user
+ *
+ * @async
+ * @returns {JSON}
+ */
+async function get_basic_user(){
+	return {
+		login: false,
+		privilege: Privileges["basic"]
+	};
+}
 
 /**
  * check if the token is listed in the user array and not expired
@@ -147,10 +160,7 @@ async function register(username, alias, password){
  * @returns {Object} - user object with username, permission and status of user (logged in or not)
  */
 async function check_login(cookies){
-	const user = {
-		login:false,
-		privilege: privileges["basic"]
-	};
+	const user = await get_basic_user();
 	if(Object.prototype.hasOwnProperty.call(cookies, "access_token")){
 		const token = cookies.access_token;
 		try{
@@ -163,13 +173,18 @@ async function check_login(cookies){
 				verify[0].issued_on = new Date().getTime();
 			}else if(verify.length > 1){
 				console.error("Internal server error, too many valid users for token found.\n Can not accept: " + dec_token.username);
+				throw new Errors.Failure("Internal server Error");
 			}else{
-				// TODO 
 				console.error("Unauthorized token used.");
+				throw new Errors.InvalidToken();
 			}
 		}catch(err){
-			// TODO: token expired 
+			if(typeof err === Errors.Failure){
+				console.debug("Failed to login");
+				throw err;
+			}
 			console.error("Can not verify user. " + err);
+			throw new Errors.InvalidToken();
 		}
 		
 	}
@@ -182,5 +197,6 @@ module.exports =  {
 	login,
 	logout,
 	register,
-	check_login
+	check_login,
+	get_basic_user
 };
