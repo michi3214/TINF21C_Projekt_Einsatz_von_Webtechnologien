@@ -2,7 +2,7 @@ const Database = require("./../../Database/database");
 
 
 /**
- * Prepare data for Home page.
+ * Prepare data for blogs, load posts and transform to teaser
  *
  * @async
  * @returns {array} - Each Content is in an JSON-Object 

@@ -20,15 +20,23 @@ async function getPage(req, res){
 		user = await authentication.get_basic_user();
 		res.clearCookie("access_token");
 	}
-	res.render("view_home", {
-		tabTitle:"Blog-Home",
-		headline: "Home",
-		pages: pages,
-		websiteName: websiteName,
-		activePage: "Home",
-		user: user
-	
-	} );
+
+	const data = await HomeModel.getBlogInformation();
+	if(typeof data === "undefined"){
+		res.redirect("/error500");
+	}
+	else{
+		res.render("view_home", {
+			tabTitle:"Blog-Home",
+			headline: "Home",
+			pages: pages,
+			websiteName: websiteName,
+			activePage: "Home",
+			contents:data.contents,
+			count: data.count,
+			user: user
+		} );
+	}
 }
 
 module.exports =  {

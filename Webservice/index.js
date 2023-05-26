@@ -37,5 +37,5 @@ app.use(errorController.getError404);
 
 
 
-const PORT = parseInt(process.env.SERVER_PORT);
+const PORT = parseInt(process.env.SERVER_PORT) || 3000;
 app.listen(PORT, console.log("Server has started at port " + PORT));
