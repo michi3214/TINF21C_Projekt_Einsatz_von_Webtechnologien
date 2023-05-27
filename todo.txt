@@ -1,3 +1,5 @@
-Add Validation of User Input: ; should not be allowed, because of manipulating of database
+
 
 Abgabe einer ZIP ohne Node_Module
+
+Check auto logout time (seem wrong to me)

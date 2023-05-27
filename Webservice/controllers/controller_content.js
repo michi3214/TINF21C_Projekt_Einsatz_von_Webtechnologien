@@ -30,6 +30,7 @@ async function getRead(req, res){
 			headline: content.headline,
 			pages: pages,
 			websiteName: websiteName,
+			activePage: "Blog",
 			data: content,
 			user: user
 		} );
@@ -73,10 +74,22 @@ async function postUpdate(req, res){
 	} );
 }
 
+async function getCreate(req, res){
+	res.render("view_create", {
+		tabTitle:"Blog-Create new Post",
+		headline: "Create new Post",
+		pages: pages,
+		websiteName: websiteName,
+		user: await authentication.check_login(req.cookies),
+		activePage: "Blog"
+	} );
+}
+
 module.exports =  {
 	getRead,
 	getUpdate,
 	deletePost,
-	postUpdate
+	postUpdate,
+	getCreate
 
 };

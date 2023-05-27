@@ -22,6 +22,9 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 app.use(express.urlencoded({extended: false}));
 
+// Add WYSWG editor
+app.use("/tinymce", express.static(path.join("..", "node_modules", "tinymce")));
+
 //Routes
 app.use("/", require("./router/router_pages"));
 app.use("/user", require("./router/router_user"));

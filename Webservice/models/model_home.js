@@ -17,7 +17,6 @@ async function getBlogInformation(){
 			return new Date(contentA.created).getTime() - new Date(contentB.created).getTime();
 		}).reverse();
 		sorted_contents = sorted_contents.slice(0,1);
-		console.log(sorted_contents);
 		for (const content of sorted_contents){
 			content.teaser = false;
 			if(content.content.length > teaserLength){
