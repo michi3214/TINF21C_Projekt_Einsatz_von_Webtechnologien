@@ -160,7 +160,6 @@ async function _get_basic_user(){
  * @returns {Object} - user object with username, permission and status of user (logged in or not)
  */
 async function check_login(req,res, next){
-	console.debug("Control login");
 	const cookies = req.cookies;
 
 
@@ -168,7 +167,6 @@ async function check_login(req,res, next){
 		const token = cookies.access_token;
 		const dec_token = JWT.verify(token, secret_key);
 		const verify = users.filter((user)=> user.username === dec_token.username && user.token === token);
-		console.debug(verify);
 
 		if(verify.length === 1){
 			verify[0].issued_on = new Date().getTime();
@@ -202,7 +200,6 @@ async function get_user(req){
 	try{
 		const token = cookies.access_token;
 		const dec_token = JWT.verify(token, secret_key);
-		console.debug(JSON.stringify(dec_token));
 		const verify = users.filter((user)=> user.username === dec_token.username && user.token === token);
 		const user = {
 			username: verify[0].username,
@@ -211,7 +208,6 @@ async function get_user(req){
 		};
 		return user;
 	}catch{
-		console.debug("get basic user");
 		return await _get_basic_user();
 	}
 }

@@ -44,7 +44,6 @@ async function getRead(req, res){
 
 
 async function getCreate(req, res){
-	console.debug("Render Create page");
 	res.render("content/view_create", {
 		tabTitle:"Blog-Create new Post",
 		headline: "Create new Post",
