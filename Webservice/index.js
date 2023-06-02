@@ -10,6 +10,11 @@ const cookieParser = require("cookie-parser");
 
 const errorController = require(path.join(__dirname, "controllers", "controller_error.js"));
 
+
+
+// Add WYSIWYG editor
+app.use("/tinymce", express.static(path.join(__dirname, "..", "node_modules", "tinymce")));
+
 // Module to work with cookies
 app.use(cookieParser());
 
@@ -22,13 +27,11 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 app.use(express.urlencoded({extended: false}));
 
-// Add WYSWG editor
-app.use("/tinymce", express.static(path.join("..", "node_modules", "tinymce")));
-
 //Routes
-app.use("/", require("./router/router_pages"));
-app.use("/user", require("./router/router_user"));
-app.use("/content", require("./router/router_content"));
+app.use("/", require(path.join(__dirname, "router", "router_pages")));
+app.use("/user", require(path.join(__dirname, "router", "router_user")));
+app.use("/content",  require(path.join(__dirname, "router", "router_content")));
+
 
 //Page not Found
 // TODO: Can be changed to /:page/error...

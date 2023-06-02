@@ -13,6 +13,8 @@ const authentication = require("../../Authentication/authentication");
  * @param {HTTP response} res
  */
 async function getRead(req, res){
+	console.log("Read : " + req.params.id);
+	console.log("Read : " + req.params);
 	const content = await ContentModel.getPost(req.params.id);
 	if(typeof content === "undefined"){
 		res.redirect("/error500");

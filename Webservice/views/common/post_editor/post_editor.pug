@@ -1,0 +1,11 @@
+div(class="container-fluid h-100")
+    div(class="mb-3 container-fluid")
+        label(for="headlineInput" class="form-label")="Headline: "
+        input(type="text" id="headlineInput" class="form-control" name="headlineInput" placeholder="Headline") 
+    div(class="mb-3 container-fluid h-100")
+        label(for="tinymce_editor" class="form-label")="Content: "
+        textarea(id="tinymce_editor" name="contentInput" placeholder="Content")="Please enter the content of your post here."
+
+script(type="application/javascript" src= "/tinymce/tinymce.min.js" referrerpolicy="origin")
+script
+    include ./javascript/tinymce-config.js

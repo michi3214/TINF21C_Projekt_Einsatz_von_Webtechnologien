@@ -1,19 +1,12 @@
 extends common\layout
 
 block content
-    script(src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin")
-    script.  
-        tinymce.init({
-            selector: "textarea#tinymce_editor",
-            menubar: false,
-            plugins: [
-                "a11ychecker","advlist","advcode","advtable","autolink","checklist","export",
-                "lists","link","image","charmap","preview","anchor","searchreplace","visualblocks",
-                "powerpaste","fullscreen","formatpainter","insertdatetime","media","table","help","wordcount"
-            ],
-            toolbar: "undo redo | casechange blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist checklist outdent indent | removeformat | a11ycheck code table help"
-        });
-    p Neuen Beitrag erstellen:
-    textarea(id="tinymce_editor")="Hello, World!"
+    form(method="POST")
+        include common\post_editor\post_editor
+        div(class="row p-2 d-flex justify-content-center")
+                input(type="submit" class="btn btn-primary m-2 w-25" value="Submit")
+                input(type="reset"  class="btn btn-primary m-2 w-25" value="Reset")
 
+
+        
     
