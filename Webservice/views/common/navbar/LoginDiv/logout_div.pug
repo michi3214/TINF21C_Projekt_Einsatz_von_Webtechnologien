@@ -1,6 +1,6 @@
 div(class="flex-fill")#Logout_Container
     ul(class="nav list-inline  justify-content-end")
         li(class="nav-item d-flex align-items-center")
-            span(class="align-middle")="Guten Tag, " + user.name
+            span(class="align-middle")="Guten Tag, " + user.username
         li(class="nav-item p-1")
             button(class="bi bi-box-arrow-in-right btn btn-primary btn-sm" OnClick="location.href='/user/logout'")=" Logout"

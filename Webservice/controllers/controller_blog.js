@@ -13,13 +13,6 @@ const authentication = require("../../Authentication/authentication");
  * @param {HTTP response} res
  */
 async function getPage(req, res){
-	let user = {};
-	try{
-		user =  await authentication.check_login(req.cookies);
-	}catch(err){
-		user = await authentication.get_basic_user();
-		res.clearCookie("access_token");
-	}
 	const contents = await BlogModel.getTeaser();
 	if(typeof contents === "undefined"){
 		res.redirect("/error500");
@@ -32,7 +25,7 @@ async function getPage(req, res){
 			websiteName: websiteName,
 			activePage: "Blog",
 			contents:contents,
-			user: user
+			user: await authentication.get_user(req)
 		} );
 	}
 }

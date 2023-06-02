@@ -10,22 +10,13 @@ const authentication = require("../../Authentication/authentication");
  * @param {HTTP response} res
  */
 async function  getPage(req, res){
-	//TODO: only users with privileges can open this page
-	let user = {};
-	try{
-		user =  await authentication.check_login(req.cookies);
-	}catch(err){
-		user = await authentication.get_basic_user();
-		res.clearCookie("access_token");
-		return res.redirect("/");
-	}
 	res.render("view_user_Management", {
 		tabTitle:"Benutzerverwaltung",
 		headline: "Benutzerverwaltung",
 		pages: pages,
 		websiteName: websiteName,
 		activePage: "Benutzerverwaltung",
-		user: user
+		user: await authentication.get_user(req)
 
 	} );
 }

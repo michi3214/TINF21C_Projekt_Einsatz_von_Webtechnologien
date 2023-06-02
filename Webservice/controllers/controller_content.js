@@ -2,6 +2,7 @@ const pages = require("../../constant").pages;
 const websiteName = require("../../constant").websiteName;
 const ContentModel = require("./../models/model_content");
 const authentication = require("../../Authentication/authentication");
+const Errors = require("../../Errors/error");
 
 
 
@@ -13,21 +14,20 @@ const authentication = require("../../Authentication/authentication");
  * @param {HTTP response} res
  */
 async function getRead(req, res){
-	console.log("Read : " + req.params.id);
-	console.log("Read : " + req.params);
+	console.log("Read article : " + req.params.id);
 	const content = await ContentModel.getPost(req.params.id);
 	if(typeof content === "undefined"){
-		res.redirect("/error500");
+		throw Errors.Failure("Could not found content.");
 	}
 	else{
 		let user = {};
 		try{
-			user =  await authentication.check_login(req.cookies);
+			user =  await authentication.check_login(req, res);
 		}catch(err){
 			user = await authentication.get_basic_user();
 			res.clearCookie("access_token");
 		}
-		res.render("view_read_Content", {
+		res.render("content/view_read", {
 			tabTitle:"Blog-" + content.headline,
 			headline: content.headline,
 			pages: pages,
@@ -40,58 +40,23 @@ async function getRead(req, res){
 	
 }
 
-async function getUpdate(req, res){
-	const content = ContentModel.getPost(req.params.id);
-	// TODO Implment
-	res.render("view_about", {
-		tabTitle:"Blog-" + content.headline,
-		headline: content.headline,
-		pages: pages,
-		websiteName: websiteName,
-		user: await authentication.check_login(req.cookies)
-	} );
-}
 
-async function deletePost(req, res){
-	// TODO Implment
-	const content = ContentModel.getPost(req.params.id);
-	res.render("view_about", {
-		tabTitle:"Blog-" + content.headline,
-		headline: content.headline,
-		pages: pages,
-		websiteName: websiteName,
-		user: await authentication.check_login(req.cookies)
-	} );
-}
 
-async function postUpdate(req, res){
-	// TODO Implment
-	const content = ContentModel.getPost(req.params.id);
-	res.render("view_about", {
-		tabTitle:"Blog-" + content.headline,
-		headline: content.headline,
-		pages: pages,
-		websiteName: websiteName,
-		user: await authentication.check_login(req.cookies)
-	} );
-}
 
 async function getCreate(req, res){
-	res.render("view_create", {
+	console.debug("Render Create page");
+	res.render("content/view_create", {
 		tabTitle:"Blog-Create new Post",
 		headline: "Create new Post",
 		pages: pages,
 		websiteName: websiteName,
-		user: await authentication.check_login(req.cookies),
+		user: await authentication.get_user(req),
 		activePage: "Blog"
 	} );
 }
 
 module.exports =  {
 	getRead,
-	getUpdate,
-	deletePost,
-	postUpdate,
 	getCreate
 
 };

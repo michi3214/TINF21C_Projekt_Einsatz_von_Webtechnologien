@@ -1,10 +1,10 @@
-extends common\layout
+extends ..\common\layout
 
 block content
     form(method="POST")
-        include common\post_editor\post_editor
+        include post_editor\post_editor
         div(class="row p-2 d-flex justify-content-center")
-                input(type="submit" class="btn btn-primary m-2 w-25" value="Submit")
+                input(type="submit" class="btn btn-primary m-2 w-25" value="Create Post")
                 input(type="reset"  class="btn btn-primary m-2 w-25" value="Reset")
 
 

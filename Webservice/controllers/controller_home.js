@@ -2,6 +2,7 @@ const pages = require("../../constant").pages;
 const websiteName = require("../../constant").websiteName;
 const HomeModel = require("./../models/model_home");
 const authentication = require("../../Authentication/authentication");
+const Errors = require("../../Errors/error");
 
 
 
@@ -13,17 +14,11 @@ const authentication = require("../../Authentication/authentication");
  * @param {HTTP response} res
  */
 async function getPage(req, res){
-	let user = {};
-	try{
-		user =  await authentication.check_login(req.cookies);
-	}catch(err){
-		user = await authentication.get_basic_user();
-		res.clearCookie("access_token");
-	}
-
+	const user =  await authentication.get_user(req);
 	const data = await HomeModel.getBlogInformation();
+	
 	if(typeof data === "undefined"){
-		res.redirect("/error500");
+		Errors.Failure("Could not load information about the blog.");
 	}
 	else{
 		res.render("view_home", {

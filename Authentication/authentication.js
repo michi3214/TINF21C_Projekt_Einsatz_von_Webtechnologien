@@ -13,11 +13,11 @@ const [secret_key, expireTime] = _get_configurations();
 /**
  * check for expired users in the users array and delete them
  */
-const check_period = 5;
+const check_period = 5; 
 const check_interval = check_period * 60 * 1000;
 setInterval(() => {
 	for (let i = 0; i < users.length; i++) { 
-		if (new Date().getTime() - new Date(users[i].issued_on).getTime() > expireTime){ 
+		if ((new Date().getTime() - new Date(users[i].issued_on).getTime()) > (expireTime * 1000)){ 
 			users.splice(i);
 		}
 	}
@@ -85,7 +85,7 @@ async function login(username, password){
 	if (await BCRYPT.compare(password, hash_password)){
 		return await _add_user(username, privilege);
 	}else{
-		throw new Error("Wrong user credentials"); // TODO: handle error
+		throw new Errors.InvalidUserCredentials(); 
 	}
 }
 
@@ -131,9 +131,6 @@ async function register(username, alias, password){
 	if (!result){
 		const token = await _add_user(username, privilege);
 		return token;
-	}else{
-		// TODO: controller should check for string and output it
-		return result.msg;
 	}
 }
 
@@ -145,50 +142,78 @@ async function register(username, alias, password){
  * @async
  * @returns {JSON}
  */
-async function get_basic_user(){
+async function _get_basic_user(){
 	return {
 		login: false,
 		privilege: Privileges["basic"]
 	};
 }
 
+
 /**
  * check if the token is listed in the user array and not expired
  *
  * @async
- * @param {*} cookies
+ * @param {HTTP Request} req
+ * @param {HTTP Response} res
+ * @param {Function} next
  * @returns {Object} - user object with username, permission and status of user (logged in or not)
  */
-async function check_login(cookies){
-	const user = await get_basic_user();
-	if(Object.prototype.hasOwnProperty.call(cookies, "access_token")){
+async function check_login(req,res, next){
+	console.debug("Control login");
+	const cookies = req.cookies;
+
+
+	try{
 		const token = cookies.access_token;
-		try{
-			const dec_token = JWT.verify(token, secret_key);
-			const verify = users.filter((user)=> user.username === dec_token.username && user.token === token);
-			if(verify.length === 1){
-				user.login = true;
-				user.privilege = verify[0].privilege;
-				user.name = verify[0].username;
-				verify[0].issued_on = new Date().getTime();
-			}else if(verify.length > 1){
-				console.error("Internal server error, too many valid users for token found.\n Can not accept: " + dec_token.username);
-				throw new Errors.Failure("Internal server Error");
-			}else{
-				console.error("Unauthorized token used.");
-				throw new Errors.InvalidToken();
-			}
-		}catch(err){
-			if(typeof err === Errors.Failure){
-				console.debug("Failed to login");
-				throw err;
-			}
-			console.error("Can not verify user. " + err);
-			throw new Errors.InvalidToken();
+		const dec_token = JWT.verify(token, secret_key);
+		const verify = users.filter((user)=> user.username === dec_token.username && user.token === token);
+		console.debug(verify);
+
+		if(verify.length === 1){
+			verify[0].issued_on = new Date().getTime();
+
+		}else if(verify.length > 1){
+			console.error("Internal server error, too many valid users for token found.\n Can not accept: " + dec_token.username);
+			next(new Errors.Failure("More than one user with this token. Could not check login."));
+		
+		}else{
+			console.error("Unauthorized token used.");
+			res.clearCookie("access_token");
+			next(new Errors.InvalidToken());
+		}
+	}
+	catch(err){
+		if(typeof err === Errors.Failure){
+			next(err);
 		}
 		
+		console.error("Can not verify user. " + err);
+		res.clearCookie("access_token");
+		next(new Errors.InvalidToken());
 	}
-	return user;
+}
+
+
+
+
+async function get_user(req){
+	const cookies = req.cookies;
+	try{
+		const token = cookies.access_token;
+		const dec_token = JWT.verify(token, secret_key);
+		console.debug(JSON.stringify(dec_token));
+		const verify = users.filter((user)=> user.username === dec_token.username && user.token === token);
+		const user = {
+			username: verify[0].username,
+			login: true,
+			privilege: verify[0].privilege
+		};
+		return user;
+	}catch{
+		console.debug("get basic user");
+		return await _get_basic_user();
+	}
 }
 
 
@@ -198,5 +223,5 @@ module.exports =  {
 	logout,
 	register,
 	check_login,
-	get_basic_user
+	get_user
 };
