@@ -6,8 +6,7 @@ block content
             div(class="col")="Last editor: " + data.author
             div(class="col")="Edited on " + data.modified
             div(class="col")="Created on " + data.created
-    div(class="p-1")
-        p=data.content
+    div(class="p-3")!=data.content
     div(class="d-flex justify-content-left")
         button(onClick="history.go(-1)" type="button" class="btn  btn-secondary  ")
             i(class="bi bi-skip-backward-circle-fill")

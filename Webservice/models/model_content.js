@@ -17,5 +17,22 @@ async function getPost(id){
 	return post;
 }
 
-module.exports = {getPost};
+
+
+async function addPost(username, headline, content){
+	console.debug("Headline: " + headline);
+	console.debug("Content: " + content);
+	console.debug("User: " + username);
+	await Database.add_content_to_database(headline, content, username);
+}
+
+async function deletePost(id){
+	await Database.delete_content_from_database(id);
+}
+
+module.exports = {
+	getPost,
+	addPost,
+	deletePost
+};
 

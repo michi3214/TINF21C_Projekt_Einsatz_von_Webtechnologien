@@ -2,14 +2,14 @@
  * This page includes the express logic. 
  */
 
-const dotenv = require("dotenv");
-const express   = require("express");
-const app 	    = express();
-const path = require("path");
-const cookieParser = require("cookie-parser");
+const dotenv        = require("dotenv");
+const express       = require("express");
+const app 	        = express();
+const path          = require("path");
+const cookieParser  = require("cookie-parser");
 
-const errorController = require(path.join(__dirname, "controllers", "controller_error.js"));
-const Errors = require("../Errors/error");
+const errorController   = require(path.join(__dirname, "controllers", "controller_error.js"));
+const Errors            = require("../Errors/error");
 
 
 // Add WYSIWYG editor
@@ -25,7 +25,7 @@ dotenv.config();
 // configure the views
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ limit: "50mb", extended: true, parameterLimit: 50000 }));
 
 //Routes
 app.use("/", require(path.join(__dirname, "router", "router_pages")));

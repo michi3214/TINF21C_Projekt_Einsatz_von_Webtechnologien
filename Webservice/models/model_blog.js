@@ -21,9 +21,7 @@ async function getTeaser(){
 			}
 		}
 		return contents;
-
 	}
-	//TODO: get alias for author id
 	
 }
 

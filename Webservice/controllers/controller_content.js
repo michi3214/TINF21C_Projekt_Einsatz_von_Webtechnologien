@@ -36,6 +36,14 @@ async function getRead(req, res){
 
 
 
+
+/**
+ * Render page to create new post
+ *
+ * @async
+ * @param {HTTP Request} req
+ * @param {HTTP Response} res
+ */
 async function getCreate(req, res){
 	res.render("content/view_create", {
 		tabTitle:"Blog-Create new Post",
@@ -47,8 +55,44 @@ async function getCreate(req, res){
 	} );
 }
 
+
+
+
+
+/**
+ * add one post to database
+ *
+ * @async
+ * @param {HTTP Request} req
+ * @param {HTTP Response} res
+ */
+async function postCreate(req, res, next){
+	const user = await authentication.get_user(req);
+	await authentication.check_privilege(user.privilege, 2, next);
+
+	const headline = req.body.headlineInput;
+	const content = req.body.contentInput;
+
+	await ContentModel.addPost(user.username, headline, content);
+	res.redirect("/blog");
+}
+
+
+
+
+async function deletePost(req, res, next){
+	const user = await authentication.get_user(req);
+	await authentication.check_privilege(user.privilege, 2, next);
+	//TODO check if author delete or admin
+	console.log("Delete article : " + req.params.id);
+
+	await ContentModel.deletePost(req.params.id);
+	res.redirect("/blog");
+}
 module.exports =  {
 	getRead,
-	getCreate
+	getCreate,
+	postCreate,
+	deletePost
 
 };

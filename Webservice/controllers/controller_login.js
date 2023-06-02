@@ -1,6 +1,7 @@
 const pages = require("../../constant").pages;
 const websiteName = require("../../constant").websiteName;
 const authentication = require("../../Authentication/authentication");
+const Errors = require("../../Errors/error");
 
 
 /**
@@ -20,7 +21,7 @@ async function getPage(req, res){
 	} );
 }
 
-async function handle_login(req, res){
+async function handle_login(req, res, next){
 	const username = req.body.usernameInput;
 	const password = req.body.passwordInput;
 	try{
@@ -34,9 +35,8 @@ async function handle_login(req, res){
 			}
 		).status(200).redirect("/");
 	}catch(error){
-		// TODO: wrong user credentials should not be an server error
 		console.error(error);
-		res.redirect("/error500");
+		next(new Errors.InvalidUserCredentials("Check your input and try again."));
 	}
 }
 

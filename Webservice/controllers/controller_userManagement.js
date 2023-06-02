@@ -9,9 +9,9 @@ const authentication = require("../../Authentication/authentication");
  * @param {HTTP request} req
  * @param {HTTP response} res
  */
-async function  getPage(req, res){
+async function  getPage(req, res, next){
 	const user = await authentication.get_user(req);
-	await authentication.check_previlege(user.privilege, 3);
+	await authentication.check_privilege(user.privilege, 3, next);
 	res.render("view_user_Management", {
 		tabTitle:"Benutzerverwaltung",
 		headline: "Benutzerverwaltung",

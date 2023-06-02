@@ -39,6 +39,8 @@ class UnauthorizedAccess extends Failure {
 
 
 
+
+
 /**
  * This error should be used if a jwt token exists, but is not valid anymore
  *
@@ -66,8 +68,7 @@ class InvalidToken extends UnauthorizedAccess {
  * @extends {Failure}
  */
 class InvalidUserCredentials extends Failure {
-	constructor(){
-		const messsage = "Wrong user credentials";
+	constructor(messsage="Wrong user credentials"){
 		super(messsage);
 		this.name = "InvalidUserCredentials";
 	}

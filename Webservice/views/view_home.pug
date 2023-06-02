@@ -8,8 +8,8 @@ block content
             div(class="m-4")
                 div(class="card m-2")
                     div(class="card-body")
-                        div(class="card-title border-bottom")=content.headline
-                        div(class="card-text mb-2")=content.content
-                        if content.teaser 
+                        div(class="card-title border-bottom")!=content.headline
+                        div(class="card-text mb-2")!=content.content
+                        div
                             a(class="btn btn-primary" href="/content/read/" + content.id)="Read full article"
 

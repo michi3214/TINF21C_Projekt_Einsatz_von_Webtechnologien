@@ -10,9 +10,11 @@ block content
         each content in contents
             div(class="m-4")
                 div(class="card m-2")
+                    div(class="card-header")
+                        div(class="card-title text-center")!=content.headline
                     div(class="card-body")
-                        div(class="card-title border-bottom")=content.headline
-                        div(class="card-text mb-2")=content.content
-                        if content.teaser 
-                            // TODO: button should be there for all posts (teasers have no information about creator / date)
-                            a(class="btn btn-primary" href="/content/read/" + content.id)="Read full article"
+                        div(class="card-text mb-2")!=content.content
+                    div(class="d-flex justify-content-center mb-1")
+                        a(class="btn btn-primary m-1" href="/content/read/" + content.id)="Read full article"
+                        a(class="btn btn-primary m-1" href="/content/delete/" + content.id)="Delete article"
+                        // TODO: admin(>3) or author should do changes 

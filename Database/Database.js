@@ -26,7 +26,7 @@ async function load_content_from_database (){
 			};
 			result.push(contentObj);
 		}
-		return result;
+		return result.reverse();
 	}catch(error){
 		console.error("Failed to load content from database");
 		console.error(error);
@@ -63,14 +63,28 @@ async function load_content_by_id(id){
 	
 }
 
-//TODO implement function and docstring
-async function add_content_to_database (){
-	
+
+/**
+ * Add post to database
+ *
+ * @async
+ * @param {String} headline
+ * @param {String} content
+ * @param {String} author_name
+ */
+async function add_content_to_database (headline, content, author_name){
+	const author_alias = (await load_user_from_database(author_name)).alias;
+	await prisma.tbl_content.create({data:{
+		headline,
+		content,
+		author_name: author_alias
+	}});
 }
 
 //TODO implement function and docstring
-async function delete_content_from_database (){
-	
+async function delete_content_from_database(id){
+	id = parseInt(id);
+	await prisma.tbl_content.delete({where:{id:id}});
 }
 
 

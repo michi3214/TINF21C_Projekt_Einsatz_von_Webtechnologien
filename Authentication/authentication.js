@@ -235,9 +235,9 @@ async function get_user(req){
  * @param {Integer} previlege - needed privilege
  * @param {Function} next
  */
-async function check_previlege(user_previlege, previlege){
+async function check_privilege(user_previlege, previlege, next){
 	if(user_previlege < previlege){
-		throw new Errors.UnauthorizedAccess("You are not allowed to execute this command.");
+		next(new Errors.UnauthorizedAccess("You are not allowed to execute this command."));
 	}
 }
 module.exports =  {
@@ -246,5 +246,5 @@ module.exports =  {
 	register,
 	check_login,
 	get_user,
-	check_previlege
+	check_privilege: check_privilege
 };
