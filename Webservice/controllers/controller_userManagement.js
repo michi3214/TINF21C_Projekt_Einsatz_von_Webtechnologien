@@ -10,13 +10,15 @@ const authentication = require("../../Authentication/authentication");
  * @param {HTTP response} res
  */
 async function  getPage(req, res){
+	const user = await authentication.get_user(req);
+	await authentication.check_previlege(user.privilege, 3);
 	res.render("view_user_Management", {
 		tabTitle:"Benutzerverwaltung",
 		headline: "Benutzerverwaltung",
 		pages: pages,
 		websiteName: websiteName,
 		activePage: "Benutzerverwaltung",
-		user: await authentication.get_user(req)
+		user: user
 
 	} );
 }

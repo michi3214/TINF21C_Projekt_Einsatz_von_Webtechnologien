@@ -2,8 +2,9 @@ footer(class="border-top bg-dark")
   // Links to subpages
   ul(class="nav justify-content-center border-bottom py-1")
     each page in pages
-      li(class="justify-content-center")
-        a(href=page.link class="nav-link px-2 text-body-secondary")=page.title
+      if user.privilege >= page.privilege
+        li(class="justify-content-center")
+          a(href=page.link class="nav-link px-2 text-body-secondary")=page.title
 
   div(class=" text-body-secondary d-flex")
     // Information text 

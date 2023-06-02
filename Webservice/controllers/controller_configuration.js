@@ -12,13 +12,15 @@ const authentication = require("../../Authentication/authentication");
  * @param {HTTP response} res
  */
 async function  getPage(req, res){
+	const user = await authentication.get_user(req);
+	await authentication.check_previlege(user.privilege, 2);
 	res.render("view_configuration", {
 		tabTitle:"Blog-Einstellungen",
 		headline: "Einstellungen",
 		pages: pages,
 		websiteName: websiteName,
 		activePage: "Einstellungen",
-		user: await authentication.get_user(req)
+		user: user
 
 	} );
 }

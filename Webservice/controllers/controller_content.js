@@ -20,13 +20,6 @@ async function getRead(req, res){
 		throw Errors.Failure("Could not found content.");
 	}
 	else{
-		let user = {};
-		try{
-			user =  await authentication.check_login(req, res);
-		}catch(err){
-			user = await authentication.get_basic_user();
-			res.clearCookie("access_token");
-		}
 		res.render("content/view_read", {
 			tabTitle:"Blog-" + content.headline,
 			headline: content.headline,
@@ -34,7 +27,7 @@ async function getRead(req, res){
 			websiteName: websiteName,
 			activePage: "Blog",
 			data: content,
-			user: user
+			user: await authentication.get_user(req)
 		} );
 	}
 	

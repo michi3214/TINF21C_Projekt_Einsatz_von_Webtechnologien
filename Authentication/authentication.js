@@ -11,7 +11,7 @@ const [secret_key, expireTime] = _get_configurations();
 
 
 /**
- * check for expired users in the users array and delete them
+ * check for expired users in the users array and delete them every 5 minutes
  */
 const check_period = 5; 
 const check_interval = check_period * 60 * 1000;
@@ -125,6 +125,7 @@ async function logout(cookies){
  */
 async function register(username, alias, password){
 	const privilege = Privileges["user"];
+
 	const salt = await BCRYPT.genSalt(15);
 	const password_hash = await BCRYPT.hash(password, salt);
 	const result = await Database.add_user_to_database(username,alias,privilege,password_hash);
@@ -151,30 +152,32 @@ async function _get_basic_user(){
 
 
 /**
- * check if the token is listed in the user array and not expired
+ * check if the token is listed in the user array and not expired,
+ * if user is expired throw an error and call error handling
  *
  * @async
  * @param {HTTP Request} req
  * @param {HTTP Response} res
  * @param {Function} next
- * @returns {Object} - user object with username, permission and status of user (logged in or not)
  */
 async function check_login(req,res, next){
 	const cookies = req.cookies;
-
+	if(!(Object.prototype.hasOwnProperty.call(cookies, "access_token"))){
+		next(new Errors.UnauthorizedAccess("Could not found a token."));
+	}
 
 	try{
 		const token = cookies.access_token;
 		const dec_token = JWT.verify(token, secret_key);
 		const verify = users.filter((user)=> user.username === dec_token.username && user.token === token);
-
 		if(verify.length === 1){
 			verify[0].issued_on = new Date().getTime();
-
+			next();
+			
 		}else if(verify.length > 1){
 			console.error("Internal server error, too many valid users for token found.\n Can not accept: " + dec_token.username);
 			next(new Errors.Failure("More than one user with this token. Could not check login."));
-		
+			
 		}else{
 			console.error("Unauthorized token used.");
 			res.clearCookie("access_token");
@@ -195,6 +198,15 @@ async function check_login(req,res, next){
 
 
 
+
+
+/**
+ * get user information, or basic user, if user is not login
+ *
+ * @async
+ * @param {HTTP Request} req
+ * @returns {unknown}
+ */
 async function get_user(req){
 	const cookies = req.cookies;
 	try{
@@ -214,10 +226,25 @@ async function get_user(req){
 
 
 
+
+/**
+ * check privilege and throw error
+ *
+ * @async
+ * @param {Integer} user_previlege - user privilege
+ * @param {Integer} previlege - needed privilege
+ * @param {Function} next
+ */
+async function check_previlege(user_previlege, previlege){
+	if(user_previlege < previlege){
+		throw new Errors.UnauthorizedAccess("You are not allowed to execute this command.");
+	}
+}
 module.exports =  {
 	login,
 	logout,
 	register,
 	check_login,
-	get_user
+	get_user,
+	check_previlege
 };
