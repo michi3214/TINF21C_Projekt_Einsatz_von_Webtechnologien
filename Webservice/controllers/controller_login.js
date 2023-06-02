@@ -16,7 +16,7 @@ async function getPage(req, res){
 		headline: "Login",
 		pages: pages,
 		websiteName: websiteName,
-		user: await authentication.check_login(req.cookies)
+		user: await authentication.get_user(req)
 	} );
 }
 
