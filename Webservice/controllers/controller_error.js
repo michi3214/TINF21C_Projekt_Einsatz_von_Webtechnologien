@@ -38,7 +38,7 @@ async function getError401 (req, res,next, msg=""){
 		pages: pages,
 		websiteName: websiteName,
 		message: await _checkMessage(msg, "Sie haben keine Berechtigung für diese Interaktion. Bitte prüfen Sie Ihren Login-Status."),
-		user: await authentication.get_user(req)
+		user: await authentication.getUser(req)
 	} );
 }
 
@@ -58,7 +58,7 @@ async function getError403 (req, res,next, msg=""){
 		pages: pages,
 		websiteName: websiteName,
 		message: await _checkMessage(msg, "Sie haben keine Berechtigung für diese Interaktion. Bitte prüfen Sie Ihren Login-Status."),
-		user: await authentication.get_user(req)
+		user: await authentication.getUser(req)
 	} );
 }
 
@@ -77,7 +77,7 @@ async function getError404 (req, res,next, msg=""){
 		pages: pages,
 		websiteName: websiteName,
 		message: await _checkMessage(msg, "Entschuldigung, Seite konnte nicht gefunden werden."),
-		user: await authentication.get_user(req)
+		user: await authentication.getUser(req)
 	} );
 }
 
@@ -97,7 +97,7 @@ async function getError500 (req, res,next, msg=""){
 		pages: pages,
 		websiteName: websiteName,
 		message: await _checkMessage(msg, "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."),
-		user: await authentication.get_user(req)
+		user: await authentication.getUser(req)
 	} );
 }
 

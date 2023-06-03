@@ -46,18 +46,18 @@ function _get_configurations(){
  * add the user to the local users variable
  *
  * @async
- * @param {string} username
- * @param {string} privilege
+ * @param {json} user
  * @returns {JsonWebToken} 
  */
-async function _add_user(username, privilege){
-	const user = {
-		username: username,
-		privilege: privilege,
+async function _add_user(user){
+	const data = {
+		username: user.username,
+		alias: user.alias,
+		privilege: user.privilege,
 		issued_on: new Date().getTime()
 	};
 	const token = JWT.sign(
-		{username: username}, 
+		{username: data.username}, 
 		secret_key, { expiresIn: expireTime}
 	);
 	user.token = token;
@@ -82,9 +82,8 @@ async function login(username, password){
 	try {
 		const user = await Database.load_user_from_database(username);
 		const hash_password = user.hash_password;
-		const privilege = user.privilege;
 		if (await BCRYPT.compare(password, hash_password)){
-			return await _add_user(username, privilege);
+			return await _add_user(user);
 		}else{
 			throw new Errors.InvalidUserCredentials(); 
 		}
@@ -134,9 +133,16 @@ async function register(username, alias, password){
 	const salt = await BCRYPT.genSalt(15);
 	const password_hash = await BCRYPT.hash(password, salt);
 	const result = await Database.add_user_to_database(username,alias,privilege,password_hash);
+	const user = {
+		username: username,
+		alias: alias,
+		privilege:privilege
+	};
 	if (!result){
-		const token = await _add_user(username, privilege);
+		const token = await _add_user(user);
 		return token;
+	}else{
+		throw new Errors.DatabaseFailure("Could not add user to Database");
 	}
 }
 
@@ -165,7 +171,7 @@ async function _get_basic_user(){
  * @param {HTTP Response} res
  * @param {Function} next
  */
-async function check_login(req,res, next){
+async function checkLogin(req,res, next){
 	const cookies = req.cookies;
 	if(!(Object.prototype.hasOwnProperty.call(cookies, "access_token"))){
 		next(new Errors.UnauthorizedAccess("Could not found a token."));
@@ -212,7 +218,7 @@ async function check_login(req,res, next){
  * @param {HTTP Request} req
  * @returns {unknown}
  */
-async function get_user(req){
+async function getUser(req){
 	const cookies = req.cookies;
 	try{
 		const token = cookies.access_token;
@@ -220,6 +226,7 @@ async function get_user(req){
 		const verify = users.filter((user)=> user.username === dec_token.username && user.token === token);
 		const user = {
 			username: verify[0].username,
+			alias: verify[0].alias,
 			login: true,
 			privilege: verify[0].privilege
 		};
@@ -249,7 +256,7 @@ module.exports =  {
 	login,
 	logout,
 	register,
-	check_login,
-	get_user,
+	checkLogin,
+	getUser,
 	check_privilege: check_privilege
 };

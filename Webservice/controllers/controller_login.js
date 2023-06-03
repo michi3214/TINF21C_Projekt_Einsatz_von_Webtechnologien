@@ -17,7 +17,7 @@ async function getPage(req, res){
 		headline: "Login",
 		pages: pages,
 		websiteName: websiteName,
-		user: await authentication.get_user(req),
+		user: await authentication.getUser(req),
 		second_try: false
 	});
 }
@@ -41,7 +41,7 @@ async function handle_login(req, res, next){
 			headline: "Login",
 			pages: pages,
 			websiteName: websiteName,
-			user: await authentication.get_user(req),
+			user: await authentication.getUser(req),
 			second_try: true
 		};
 		if(error instanceof Errors.InvalidUsername){

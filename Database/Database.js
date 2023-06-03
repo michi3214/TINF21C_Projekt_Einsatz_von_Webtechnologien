@@ -1,6 +1,5 @@
 /**
  * This script implement all functions for connection to database. 
- * // TODO: all database function need the next() to handle errors while interaction
 */
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
@@ -105,7 +104,7 @@ async function delete_content_from_database(id){
 	try {
 		await prisma.tbl_content.delete({where:{id:id}});
 	} catch (error) {
-		console.error("Could not delete contnet " + id + " from database: ");
+		console.error("Could not delete content " + id + " from database: ");
 		console.error(error);
 	}
 }
@@ -162,9 +161,21 @@ async function add_user_to_database (username, alias, privilege, password){
 	
 }
 
-//TODO implement function and docstring
-async function delete_user_from_database(id){
-	
+
+/**
+ * Delete one user from the database
+ * please be aware to delete all his posts before that
+ *
+ * @async
+ * @param {String} username
+ */
+async function delete_user_from_database(username){
+	try{
+		await prisma.tbl_author.delete({where:{name:username}});
+	}catch(err){
+		console.error("Could not delete user: " + username);
+		throw new Errors.DatabaseFailure(err.message);
+	}
 }
 
 

@@ -17,7 +17,7 @@ async function getPage(req, res){
 		pages: pages,
 		websiteName: websiteName,
 		activePage: "Impressum",
-		user: await authentication.get_user(req)
+		user: await authentication.getUser(req)
 	} );
 	
 }

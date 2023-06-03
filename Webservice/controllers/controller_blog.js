@@ -26,7 +26,7 @@ async function getPage(req, res, next){
 			websiteName: websiteName,
 			activePage: "Blog",
 			contents:contents,
-			user: await authentication.get_user(req)
+			user: await authentication.getUser(req)
 		} );
 	}
 }

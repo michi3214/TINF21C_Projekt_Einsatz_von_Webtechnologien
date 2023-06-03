@@ -18,11 +18,11 @@ async function getPage(req, res){
 		headline: "Register",
 		pages: pages,
 		websiteName: websiteName,
-		user: await authentication.get_user(req)
+		user: await authentication.getUser(req)
 	} );
 }
 
-async function handle_register(req, res, next){
+async function handleRegister(req, res, next){
 	// TDOD: JSDOC 
 	const username = req.body.usernameInput;
 	const password = req.body.passwordInput;
@@ -46,17 +46,15 @@ async function handle_register(req, res, next){
 				headline: "Register",
 				pages: pages,
 				websiteName: websiteName,
-				user: await authentication.get_user(req),
+				user: await authentication.getUser(req),
 				username: username,
 				password: password,
 				alias: alias
 			};
 			if(error.message.includes("Unique constraint failed on the fields: (`alias`)")){
-				console.debug("Alias wrong");
 				data.error_msg = "Der Alias existiert bereits. Bitte nutzen Sie einen anderen.";
 				return res.render("view_register", data);
 			}else if(error.message.includes("Unique constraint failed on the fields: (`name`)")){
-				console.debug("Username wrong");
 				data.error_msg = "Der Benutzername wird bereits genutzt. Bitte versuchen Sie einen anderen.";
 				return res.render("view_register", data);
 			}
@@ -67,5 +65,5 @@ async function handle_register(req, res, next){
 
 module.exports =  {
 	getPage,
-	handle_register
+	handleRegister
 };

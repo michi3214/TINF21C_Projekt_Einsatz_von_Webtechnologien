@@ -27,7 +27,7 @@ async function getRead(req, res){
 			websiteName: websiteName,
 			activePage: "Blog",
 			data: content,
-			user: await authentication.get_user(req)
+			user: await authentication.getUser(req)
 		} );
 	}
 	
@@ -50,7 +50,7 @@ async function getCreate(req, res){
 		headline: "Erstelle neuen Beitrag",
 		pages: pages,
 		websiteName: websiteName,
-		user: await authentication.get_user(req),
+		user: await authentication.getUser(req),
 		activePage: "Blog"
 	} );
 }
@@ -67,7 +67,7 @@ async function getCreate(req, res){
  * @param {HTTP Response} res
  */
 async function postCreate(req, res, next){
-	const user = await authentication.get_user(req);
+	const user = await authentication.getUser(req);
 	await authentication.check_privilege(user.privilege, 2, next);
 
 	const headline = req.body.headlineInput;
@@ -81,10 +81,9 @@ async function postCreate(req, res, next){
 
 
 async function deletePost(req, res, next){
-	const user = await authentication.get_user(req);
+	const user = await authentication.getUser(req);
 	await authentication.check_privilege(user.privilege, 2, next);
-	//TODO check if author delete or admin
-	console.log("Delete article : " + req.params.id);
+	console.log("Delete article : " + req.id);
 
 	await ContentModel.deletePost(req.params.id);
 	res.redirect("/blog");

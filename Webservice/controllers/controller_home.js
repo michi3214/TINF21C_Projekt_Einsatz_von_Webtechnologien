@@ -14,7 +14,7 @@ const Errors = require("../../Errors/error");
  * @param {HTTP response} res
  */
 async function getPage(req, res){
-	const user =  await authentication.get_user(req);
+	const user =  await authentication.getUser(req);
 	const data = await HomeModel.getBlogInformation();
 	
 	if(typeof data === "undefined"){

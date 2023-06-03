@@ -3,14 +3,21 @@ extends common\layout
 block content
     div="Hier können die eigenen Einstellungen angepasst werden."
     form(class="container-fluid")
-        div(class="h6")="Persönliche Informationen"
-            div()
+        div(class="p-1")
+            p(class="h4")="Persönliche Informationen"
+            div(class="p-2")
                 label(for="usernameInput")="Ändere deinen Benutzernamen:"
                 input(type="text" class="form-control" name="usernameInput"  value=user.username required autocomplete="given-name")
-            div()
+            div(class="p-2")
                 label(for="aliasInput")="Ändere deinen Alias:"
-                input(type="text" class="form-control" name="aliasInput" placeholder="Alias" value=alias required autocomplete="nickname")
-        div(class="h6")="Sicherheitseinstellungen"
-            label(for="passwordInput")="Ändere dein Passwort"
-            input()
-        div()
+                input(type="text" class="form-control" name="aliasInput" placeholder="Alias" value=user.alias required autocomplete="nickname")
+
+        div(class="p-1")
+            p(class="h4")="Sicherheitseinstellungen"
+            div(class="p-2")
+                label(for="passwordInput")="Ändere dein Passwort"
+                input(type="password" class="form-control" name="passwordInput" placeholder="Passwort" required autocomplete="new-password")
+        div(class="row p-2 d-flex justify-content-center")
+            input(type="submit" class="btn btn-success m-2 w-25" value="Änderungen übernehmen")
+            input(type="reset"  class="btn btn-secondary m-2 w-25" value="Zurücksetzen")
+            a(class="btn btn-danger m-2 w-25" href="/user/configuration/delete/" + user.username)="Benutzer löschen"
