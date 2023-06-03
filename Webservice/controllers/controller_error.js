@@ -33,11 +33,11 @@ async function _checkMessage(errMsg, defaultMsg){
  */
 async function getError401 (req, res,next, msg=""){
 	res.status(401).render("error", {
-		tabTitle:"Blog - Unauthorized",
-		headline: "Unauthorized interaction",
+		tabTitle:"Blog - Unerlaubter Zugang",
+		headline: "Unerlaubter Zugang",
 		pages: pages,
 		websiteName: websiteName,
-		message: await _checkMessage(msg, "You are not allowed to do that! Please check your login."),
+		message: await _checkMessage(msg, "Sie haben keine Berechtigung für diese Interaktion. Bitte prüfen Sie Ihren Login-Status."),
 		user: await authentication.get_user(req)
 	} );
 }
@@ -53,11 +53,11 @@ async function getError401 (req, res,next, msg=""){
  */
 async function getError403 (req, res,next, msg=""){
 	res.status(403).render("error", {
-		tabTitle:"Blog - Forbidden",
-		headline: "Forbidden interaction",
+		tabTitle:"Blog - Unerlaubt",
+		headline: "Unerlaubte Interaktion",
 		pages: pages,
 		websiteName: websiteName,
-		message: await _checkMessage(msg, "You are not allowed to do that! Please check your login."),
+		message: await _checkMessage(msg, "Sie haben keine Berechtigung für diese Interaktion. Bitte prüfen Sie Ihren Login-Status."),
 		user: await authentication.get_user(req)
 	} );
 }
@@ -72,11 +72,11 @@ async function getError403 (req, res,next, msg=""){
  */
 async function getError404 (req, res,next, msg=""){
 	res.status(404).render("error", {
-		tabTitle:"Blog - Not found",
-		headline: "Page not found!",
+		tabTitle:"Blog - Nicht gefunden",
+		headline: "Seite wurde nicht gefunden.",
 		pages: pages,
 		websiteName: websiteName,
-		message: await _checkMessage(msg, "Sorry page could not be found."),
+		message: await _checkMessage(msg, "Entschuldigung, Seite konnte nicht gefunden werden."),
 		user: await authentication.get_user(req)
 	} );
 }
@@ -92,11 +92,11 @@ async function getError404 (req, res,next, msg=""){
  */
 async function getError500 (req, res,next, msg=""){
 	res.status(500).render("error", {
-		tabTitle:"Blog - Internal Server Error",
-		headline: "Internal server error",
+		tabTitle:"Blog - Interner Serverfehler",
+		headline: "Interner Serverfehler",
 		pages: pages,
 		websiteName: websiteName,
-		message: await _checkMessage(msg, "Something went wrong. Internal Server Error"),
+		message: await _checkMessage(msg, "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."),
 		user: await authentication.get_user(req)
 	} );
 }
@@ -107,7 +107,7 @@ async function getError500 (req, res,next, msg=""){
 
 /**
  * Middleware to handle errors:
- * process errors happening while processing
+ * process errors happening while processing, choose the correct error page
  *
  * @async
  * @param {Error} err
@@ -132,7 +132,7 @@ async function getError(err, req, res, next){
 		await getError403(req, res,next, err.message);
 	}else {
 		console.error("Undefined error found: " + err);
-		await getError500(req, res,next, err.message | "Internal Server Error");
+		await getError500(req, res,next, err.message | "Interner Serverfehler");
 	}	
 }
 

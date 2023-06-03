@@ -9,22 +9,22 @@ block content
                     span=error_msg
             div(class="row p-2")
                 div(class="col-md-auto")
-                    label(for="usernameInput")="Username:"
+                    label(for="usernameInput")="Benutzernamen:"
             div(class="row p-2")
                 div(class="col-md-auto")
                 div(class="col")
                     - 
                         username = typeof username === "string" ? username : undefined
-                    input(type="text" class="form-control" name="usernameInput" placeholder="Username"  value=username required autocomplete="given-name")
+                    input(type="text" class="form-control" name="usernameInput" placeholder="Benutzernamen"  value=username required autocomplete="given-name")
             div(class="row p-2")
                 div(class="col-md-auto")
-                    label(for="passwordInput")="Password:"
+                    label(for="passwordInput")="Passwort:"
             div(class="row p-2")
                 div(class="col-md-auto")
                 div(class="col")
                     - 
                         password = typeof password === "string" ? password : undefined
-                    input(type="password" class="form-control" name="passwordInput" value=password placeholder="Password" required autocomplete="new-password")
+                    input(type="password" class="form-control" name="passwordInput" value=password placeholder="Passwort" required autocomplete="new-password")
             div(class="row p-2")
                 div(class="col-md-auto")
                     label(for="aliasInput")="Alias:"
@@ -35,5 +35,5 @@ block content
                         alias = typeof alias === "string" ? alias : undefined
                     input(type="text" class="form-control" name="aliasInput" placeholder="Alias" value=alias required autocomplete="nickname")
             div(class="row p-2 d-flex justify-content-center")
-                input(type="submit" class="btn btn-primary m-2 w-25" value="Register")
-                input(type="reset"  class="btn btn-primary m-2 w-25" value="Reset")
+                input(type="submit" class="btn btn-primary m-2 w-25" value="Registrieren")
+                input(type="reset"  class="btn btn-primary m-2 w-25" value="Zurücksetzen")

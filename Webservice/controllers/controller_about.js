@@ -12,7 +12,7 @@ const authentication = require("../../Authentication/authentication");
  */
 async function getPage(req, res){
 	res.render("view_about", {
-		tabTitle:"Blog-Impressum",
+		tabTitle:"Blog - Impressum",
 		headline: "Impressum",
 		pages: pages,
 		websiteName: websiteName,

@@ -22,7 +22,7 @@ async function getPage(req, res){
 	}
 	else{
 		res.render("view_home", {
-			tabTitle:"Blog-Home",
+			tabTitle:"Blog - Home",
 			headline: "Home",
 			pages: pages,
 			websiteName: websiteName,

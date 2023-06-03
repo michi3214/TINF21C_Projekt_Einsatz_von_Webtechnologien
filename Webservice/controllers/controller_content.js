@@ -17,11 +17,11 @@ async function getRead(req, res){
 	console.log("Read article : " + req.params.id);
 	const content = await ContentModel.getPost(req.params.id);
 	if(typeof content === "undefined"){
-		throw Errors.Failure("Could not found content.");
+		throw new Errors.Failure("Could not found content.");
 	}
 	else{
 		res.render("content/view_read", {
-			tabTitle:"Blog-" + content.headline,
+			tabTitle:"Blog - " + content.headline,
 			headline: content.headline,
 			pages: pages,
 			websiteName: websiteName,
@@ -46,8 +46,8 @@ async function getRead(req, res){
  */
 async function getCreate(req, res){
 	res.render("content/view_create", {
-		tabTitle:"Blog-Create new Post",
-		headline: "Create new Post",
+		tabTitle:"Blog - Erstelle neuen Beitrag",
+		headline: "Erstelle neuen Beitrag",
 		pages: pages,
 		websiteName: websiteName,
 		user: await authentication.get_user(req),

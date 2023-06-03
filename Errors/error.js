@@ -50,7 +50,7 @@ class UnauthorizedAccess extends Failure {
  */
 class InvalidToken extends UnauthorizedAccess {
 	constructor (){
-		const messsage = "Your login is expired, please login again.";
+		const messsage = "Ihr Login ist abgelaufen, bitte loggen Sie sich erneut ein.";
 		super(messsage);
 		this.name = "InvalidToken";
 	}
@@ -68,7 +68,7 @@ class InvalidToken extends UnauthorizedAccess {
  * @extends {Failure}
  */
 class InvalidUserCredentials extends Failure {
-	constructor(messsage="Wrong user credentials"){
+	constructor(messsage="Falsche Anmeldedaten wurden genutzt."){
 		super(messsage);
 		this.name = "InvalidUserCredentials";
 	}
@@ -77,7 +77,7 @@ class InvalidUserCredentials extends Failure {
 
 
 class InvalidUsername extends InvalidUserCredentials{
-	constructor(messsage="Username is not valid."){
+	constructor(messsage="Benutzername ist nicht valide."){
 		super(messsage);
 		this.name = "InvalidUsername";
 	}
@@ -94,7 +94,7 @@ class InvalidUsername extends InvalidUserCredentials{
  * @extends {Error}
  */
 class DatabaseFailure extends Failure {
-	constructor (messsage){
+	constructor (messsage="Fehler bei der Interaktion mit der Datenbank"){
 		super(messsage);
 
 		this.name = "DatabaseFailure";

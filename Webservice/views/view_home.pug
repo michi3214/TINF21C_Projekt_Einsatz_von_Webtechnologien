@@ -1,7 +1,6 @@
 extends common\layout
 
 block content
-    p="Home Bereich Teaser des Blogs (erste Beiträge, Anzahl )"
     div="Aktuell gibt es auf dieser Webseite nur einen Blog mit " + count + " Beiträgen.\n Hier sind die letzten paar Einträge:"
     div 
         each content in contents
@@ -11,5 +10,5 @@ block content
                         div(class="card-title border-bottom")!=content.headline
                         div(class="card-text mb-2")!=content.content
                         div
-                            a(class="btn btn-primary" href="/content/read/" + content.id)="Read full article"
+                            a(class="btn btn-primary" href="/content/read/" + content.id)="Gesamten Beitrag lesen..."
 

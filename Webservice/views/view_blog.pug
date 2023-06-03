@@ -3,9 +3,10 @@ extends common\layout
 block content 
     div(class="container")
     if user.privilege > 1 
-        a(class="btn btn-primary" href="/content/create")="Create new Content"
+        div(class="d-flex justify-content-center mt-3")
+            a(class="btn btn-primary" href="/content/create")="Neuen Beitrag erstellen"
     if contents.length < 1
-        h3  Sorry, no posts could be found.
+        h4(class="p-2")  Entschuldigung, leider konnten keine Beiträge gefunden werden.<br> Versuchen Sie es gerne später nochmal.
     else
         each content in contents
             div(class="m-4")
@@ -15,7 +16,7 @@ block content
                     div(class="card-body")
                         div(class="card-text mb-2")!=content.content
                     div(class="d-flex justify-content-center mb-1")
-                        a(class="btn btn-primary m-1" href="/content/read/" + content.id)="Read full article"
+                        a(class="btn btn-primary m-1" href="/content/read/" + content.id)="Gesamten Beitrag lesen..."
                         if user.privilege > 2
-                            a(class="btn btn-primary m-1" href="/content/delete/" + content.id)="Delete article"
+                            a(class="btn btn-primary m-1" href="/content/delete/" + content.id)="Beitrag löschen"
                         // TODO: admin(>3) or author should do changes 

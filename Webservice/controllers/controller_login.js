@@ -13,7 +13,7 @@ const Errors = require("../../Errors/error");
  */
 async function getPage(req, res){
 	res.render("view_login", {
-		tabTitle:"Blog-Login",
+		tabTitle:"Blog - Login",
 		headline: "Login",
 		pages: pages,
 		websiteName: websiteName,
@@ -37,7 +37,7 @@ async function handle_login(req, res, next){
 		).status(200).redirect("/");
 	}catch(error){
 		const data = {
-			tabTitle:"Blog-Login",
+			tabTitle:"Blog - Login",
 			headline: "Login",
 			pages: pages,
 			websiteName: websiteName,
@@ -45,11 +45,11 @@ async function handle_login(req, res, next){
 			second_try: true
 		};
 		if(error instanceof Errors.InvalidUsername){
-			data.error_msg = "Username is not existing, please <a href=\"/user/register\">register</a> or try again.";
+			data.error_msg = "Der Nutzername existiert nicht, bitte <a href=\"/user/register\">registrieren</a> Sie sich oder versuchen Sie es erneut.";
 			return res.status(401).render("view_login", data );
 		}else if(error instanceof Errors.InvalidUserCredentials){
 			console.error("Wrong user credentials used for: " + username);
-			data.error_msg = "Credentials were wrong. Please try again.";
+			data.error_msg = "Anmeldedaten sind falsch, bitte versuchen Sie es erneut.";
 			return res.status(401).render("view_login", data );
 		} 
 		next(error);

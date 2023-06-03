@@ -14,7 +14,7 @@ const Errors = require("../../Errors/error");
  */
 async function getPage(req, res){
 	res.render("view_register", {
-		tabTitle:"Blog-Register",
+		tabTitle:"Blog - Register",
 		headline: "Register",
 		pages: pages,
 		websiteName: websiteName,
@@ -42,7 +42,7 @@ async function handle_register(req, res, next){
 		console.error("Could not register user: " + username);
 		if(error instanceof Errors.DatabaseFailure){
 			const data = {
-				tabTitle:"Blog-Register",
+				tabTitle:"Blog - Register",
 				headline: "Register",
 				pages: pages,
 				websiteName: websiteName,
@@ -53,11 +53,11 @@ async function handle_register(req, res, next){
 			};
 			if(error.message.includes("Unique constraint failed on the fields: (`alias`)")){
 				console.debug("Alias wrong");
-				data.error_msg = "Alias already used, please use another one.";
+				data.error_msg = "Der Alias existiert bereits. Bitte nutzen Sie einen anderen.";
 				return res.render("view_register", data);
 			}else if(error.message.includes("Unique constraint failed on the fields: (`name`)")){
 				console.debug("Username wrong");
-				data.error_msg = "Username already existing, please use another one.";
+				data.error_msg = "Der Benutzername wird bereits genutzt. Bitte versuchen Sie einen anderen.";
 				return res.render("view_register", data);
 			}
 		}

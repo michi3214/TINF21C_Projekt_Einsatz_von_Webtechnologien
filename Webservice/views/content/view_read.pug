@@ -3,14 +3,14 @@ extends ..\common\layout
 block content 
     div(class="container p-1 border-bottom text-center")
         div(class="row")
-            div(class="col")="Last editor: " + data.author
-            div(class="col")="Edited on " + data.modified
-            div(class="col")="Created on " + data.created
+            div(class="col")="Letzter Herausgeber: " + data.author
+            div(class="col")="Bearbeitet am " + data.modified
+            div(class="col")="Erstellt am " + data.created
     if user.privilege > 2
         div(class="d-flex justify-content-center mt-3")
-            a(class="btn btn-primary m-1" href="/content/delete/" + data.id)="Delete article"
+            a(class="btn btn-primary m-1" href="/content/delete/" + data.id)="Lösche den Beitrag"
     div(class="p-3")!=data.content
     div(class="d-flex justify-content-left")
         button(onClick="history.go(-1)" type="button" class="btn  btn-secondary  ")
             i(class="bi bi-skip-backward-circle-fill")
-            span=" Back"
+            span=" Zurück"
