@@ -11,7 +11,6 @@ const authentication = require("../../Authentication/authentication");
  * @param {HTTP request} req
  * @param {HTTP response} res
  */
-// TODO only not ligged in user can open this page
 async function getPage(req, res){
 	res.render("view_register", {
 		tabTitle:"Blog-Register",

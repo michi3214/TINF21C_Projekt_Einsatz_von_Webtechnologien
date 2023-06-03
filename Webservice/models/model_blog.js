@@ -8,17 +8,20 @@ const Database = require("./../../Database/database");
  * @returns {array} - Each Content is in an JSON-Object 
  */
 async function getTeaser(){
-	const teaserLength = 200;
 	const contents = await Database.load_content_from_database();
 	if (typeof contents === "undefined"){
 		return;
 	} else {
 		for (const content of contents){
-			content.teaser = false;
-			if(content.content.length > teaserLength){
-				content.content = content.content.substring(0,teaserLength) + "...";
-				content.teaser = true;
-			}
+			content.teaser = true;
+			console.debug(content.content.indexOf(". "));
+			console.debug(content.content.indexOf("\n") - 1);
+			console.debug(content.content.indexOf(".\""));
+
+			const break_positions = [content.content.indexOf(". "), content.content.indexOf("\n") - 1, content.content.indexOf(".\"")].filter(position => position > 0);
+			console.debug(Math.min(...break_positions));
+			content.content = content.content.substring(0,Math.min(...break_positions)) + "...";
+			console.debug(content.content);
 		}
 		return contents;
 	}

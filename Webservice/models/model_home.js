@@ -27,7 +27,6 @@ async function getBlogInformation(){
 		return {contents: sorted_contents, count: count};
 
 	}
-	//TODO: get alias for author id
 	
 }
 

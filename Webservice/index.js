@@ -33,8 +33,7 @@ app.use("/user", require(path.join(__dirname, "router", "router_user")));
 app.use("/content",  require(path.join(__dirname, "router", "router_content")));
 
 
-//Page not Found
-// TODO: Can be changed to /:page/error...
+// Error handling
 app.use("/error404", errorController.getError404);
 app.use("/error403", errorController.getError403);
 app.use("/error500", errorController.getError500);
