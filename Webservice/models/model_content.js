@@ -20,9 +20,6 @@ async function getPost(id){
 
 
 async function addPost(username, headline, content){
-	console.debug("Headline: " + headline);
-	console.debug("Content: " + content);
-	console.debug("User: " + username);
 	await Database.add_content_to_database(headline, content, username);
 }
 
