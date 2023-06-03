@@ -1,5 +1,6 @@
 /**
  * This script implement all functions for connection to database. 
+ * // TODO: all database function need the next() to handle errors while interaction
 */
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
@@ -55,7 +56,7 @@ async function load_content_by_id(id){
 			"author":    content.author_name
 		};
 	}catch(error){
-		console.error("Failed to load content from database");
+		console.error("Failed to load content " + id + " from database");
 		console.error(error);
 		return;
 	}
@@ -74,17 +75,38 @@ async function load_content_by_id(id){
  */
 async function add_content_to_database (headline, content, author_name){
 	const author_alias = (await load_user_from_database(author_name)).alias;
-	await prisma.tbl_content.create({data:{
-		headline,
-		content,
-		author_name: author_alias
-	}});
+	try {
+		await prisma.tbl_content.create({data:{
+			headline,
+			content,
+			author_name: author_alias
+		}});
+		
+	} catch (error) {
+		console.error("Failed to add content " + headline + " to database");
+		console.error(error);
+	}
 }
 
-//TODO implement function and docstring
+
+
+
+
+
+/**
+ * Delete content with the given id from the database
+ *
+ * @async
+ * @param {String | Number} id - content id
+ */
 async function delete_content_from_database(id){
 	id = parseInt(id);
-	await prisma.tbl_content.delete({where:{id:id}});
+	try {
+		await prisma.tbl_content.delete({where:{id:id}});
+	} catch (error) {
+		console.error("Could not delete contnet " + id + " from database: ");
+		console.error(error);
+	}
 }
 
 
@@ -145,7 +167,7 @@ async function add_user_to_database (username, alias, privilege, password){
 }
 
 //TODO implement function and docstring
-async function delete_user_from_database (){
+async function delete_user_from_database(id){
 	
 }
 

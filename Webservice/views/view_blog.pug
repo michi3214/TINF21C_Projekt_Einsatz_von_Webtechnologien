@@ -16,5 +16,6 @@ block content
                         div(class="card-text mb-2")!=content.content
                     div(class="d-flex justify-content-center mb-1")
                         a(class="btn btn-primary m-1" href="/content/read/" + content.id)="Read full article"
-                        a(class="btn btn-primary m-1" href="/content/delete/" + content.id)="Delete article"
+                        if user.privilege > 2
+                            a(class="btn btn-primary m-1" href="/content/delete/" + content.id)="Delete article"
                         // TODO: admin(>3) or author should do changes 
