@@ -19,10 +19,28 @@ async function getPost(id){
 
 
 
+/**
+ * add one post
+ *
+ * @async
+ * @param {String} username
+ * @param {String} headline
+ * @param {String} content
+ */
 async function addPost(username, headline, content){
 	await Database.add_content_to_database(headline, content, username);
 }
 
+
+
+
+
+/**
+ * Delete one post
+ *
+ * @async
+ * @param {String} id - post id
+ */
 async function deletePost(id){
 	await Database.delete_content_from_database(id);
 }

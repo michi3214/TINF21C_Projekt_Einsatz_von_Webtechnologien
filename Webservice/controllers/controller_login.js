@@ -22,6 +22,11 @@ async function getPage(req, res){
 	});
 }
 
+
+
+
+
+// TODO: * should be in model * add JSDoc
 async function handle_login(req, res, next){
 	const username = req.body.usernameInput;
 	const password = req.body.passwordInput;

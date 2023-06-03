@@ -22,8 +22,19 @@ async function getPage(req, res){
 	} );
 }
 
+
+
+
+
+/**
+ * process register 
+ *
+ * @async
+ * @param {HTTP Request} req
+ * @param {HTTP Response} res
+ * @param {Function} next
+ */
 async function handleRegister(req, res, next){
-	// TDOD: JSDOC 
 	const username = req.body.usernameInput;
 	const password = req.body.passwordInput;
 	const alias = req.body.aliasInput;
