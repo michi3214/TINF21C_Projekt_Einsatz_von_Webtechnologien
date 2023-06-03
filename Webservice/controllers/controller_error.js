@@ -22,22 +22,22 @@ async function _checkMessage(errMsg, defaultMsg){
 }
 
 
-
 /**
- * Page rendering for not found page
+ * Render page for forbidden interaction
  *
  * @async
  * @param {HTTP request} req
  * @param {HTTP response} res
  * @param {String} msg
+ * 
  */
-async function getError404 (req, res,next, msg=""){
-	res.status(404).render("error", {
-		tabTitle:"Blog - Not found",
-		headline: "Page not found!",
+async function getError401 (req, res,next, msg=""){
+	res.status(401).render("error", {
+		tabTitle:"Blog - Unauthorized",
+		headline: "Unauthorized interaction",
 		pages: pages,
 		websiteName: websiteName,
-		message: await _checkMessage(msg, "Sorry page could not be found."),
+		message: await _checkMessage(msg, "You are not allowed to do that! Please check your login."),
 		user: await authentication.get_user(req)
 	} );
 }
@@ -61,6 +61,26 @@ async function getError403 (req, res,next, msg=""){
 		user: await authentication.get_user(req)
 	} );
 }
+
+/**
+ * Page rendering for not found page
+ *
+ * @async
+ * @param {HTTP request} req
+ * @param {HTTP response} res
+ * @param {String} msg
+ */
+async function getError404 (req, res,next, msg=""){
+	res.status(404).render("error", {
+		tabTitle:"Blog - Not found",
+		headline: "Page not found!",
+		pages: pages,
+		websiteName: websiteName,
+		message: await _checkMessage(msg, "Sorry page could not be found."),
+		user: await authentication.get_user(req)
+	} );
+}
+
 
 /**
  * Render page for internal server error
@@ -103,7 +123,7 @@ async function getError(err, req, res, next){
 		await getError403(req, res,next, err.message);
 
 	}else if(err instanceof Errors.UnauthorizedAccess){
-		await getError403(req, res,next, err.message);
+		await getError401(req, res,next, err.message);
 
 	}else if(err instanceof Errors.DatabaseFailure){
 		await getError500(req, res,next, err.message);
@@ -119,6 +139,7 @@ async function getError(err, req, res, next){
 
 
 module.exports =  {
+	getError401,
 	getError403,
 	getError404,
 	getError500,

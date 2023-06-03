@@ -7,6 +7,7 @@ const Database = require("../../Database/database");
  * @returns {array} - Each Content is in an JSON-Object 
  */
 async function getBlogInformation(){
+	// TODO: Change this function oriented by the blog
 	const teaserLength = 200;
 	const contents = await Database.load_content_from_database();
 	if (typeof contents === "undefined"){

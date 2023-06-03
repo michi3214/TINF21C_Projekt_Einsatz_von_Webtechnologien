@@ -1,6 +1,7 @@
 const pages = require("../../constant").pages;
 const websiteName = require("../../constant").websiteName;
 const authentication = require("../../Authentication/authentication");
+const Errors = require("../../Errors/error");
 
 
 
@@ -21,21 +22,47 @@ async function getPage(req, res){
 	} );
 }
 
-async function handle_register(req, res){
+async function handle_register(req, res, next){
 	// TDOD: JSDOC 
-	//TODO: only not loggined user can user
 	const username = req.body.usernameInput;
 	const password = req.body.passwordInput;
 	const alias = req.body.aliasInput;
-	const token = await authentication.register(username, alias, password);
-	res.cookie(
-		"access_token", 
-		token, 
-		{
-			httpOnly: true,
-			secure: true
+	try {
+		const token = await authentication.register(username, alias, password);
+		return res.cookie(
+			"access_token", 
+			token, 
+			{
+				httpOnly: true,
+				secure: true
+			}
+		).status(200).redirect("/");
+		
+	} catch (error) {
+		console.error("Could not register user: " + username);
+		if(error instanceof Errors.DatabaseFailure){
+			const data = {
+				tabTitle:"Blog-Register",
+				headline: "Register",
+				pages: pages,
+				websiteName: websiteName,
+				user: await authentication.get_user(req),
+				username: username,
+				password: password,
+				alias: alias
+			};
+			if(error.message.includes("Unique constraint failed on the fields: (`alias`)")){
+				console.debug("Alias wrong");
+				data.error_msg = "Alias already used, please use another one.";
+				return res.render("view_register", data);
+			}else if(error.message.includes("Unique constraint failed on the fields: (`name`)")){
+				console.debug("Username wrong");
+				data.error_msg = "Username already existing, please use another one.";
+				return res.render("view_register", data);
+			}
 		}
-	).status(200).redirect("/");
+		next(error);
+	}
 }
 
 module.exports =  {

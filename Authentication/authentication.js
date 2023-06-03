@@ -79,14 +79,19 @@ async function _add_user(username, privilege){
  * @returns {JsonWebToken}
  */
 async function login(username, password){
-	const user = await Database.load_user_from_database(username);
-	const hash_password = user.hash_password;
-	const privilege = user.privilege;
-	if (await BCRYPT.compare(password, hash_password)){
-		return await _add_user(username, privilege);
-	}else{
-		throw new Errors.InvalidUserCredentials(); 
+	try {
+		const user = await Database.load_user_from_database(username);
+		const hash_password = user.hash_password;
+		const privilege = user.privilege;
+		if (await BCRYPT.compare(password, hash_password)){
+			return await _add_user(username, privilege);
+		}else{
+			throw new Errors.InvalidUserCredentials(); 
+		}
+	} catch (error) {
+		throw new Errors.InvalidUsername();
 	}
+	
 }
 
 

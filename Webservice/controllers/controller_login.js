@@ -17,8 +17,9 @@ async function getPage(req, res){
 		headline: "Login",
 		pages: pages,
 		websiteName: websiteName,
-		user: await authentication.get_user(req)
-	} );
+		user: await authentication.get_user(req),
+		second_try: false
+	});
 }
 
 async function handle_login(req, res, next){
@@ -26,7 +27,7 @@ async function handle_login(req, res, next){
 	const password = req.body.passwordInput;
 	try{
 		const token = await authentication.login(username, password);
-		res.cookie(  
+		return res.cookie(  
 			"access_token", 
 			token, 
 			{
@@ -35,8 +36,23 @@ async function handle_login(req, res, next){
 			}
 		).status(200).redirect("/");
 	}catch(error){
-		console.error(error);
-		next(new Errors.InvalidUserCredentials("Check your input and try again."));
+		const data = {
+			tabTitle:"Blog-Login",
+			headline: "Login",
+			pages: pages,
+			websiteName: websiteName,
+			user: await authentication.get_user(req),
+			second_try: true
+		};
+		if(error instanceof Errors.InvalidUsername){
+			data.error_msg = "Username is not existing, please <a href=\"/user/register\">register</a> or try again.";
+			return res.status(401).render("view_login", data );
+		}else if(error instanceof Errors.InvalidUserCredentials){
+			console.error("Wrong user credentials used for: " + username);
+			data.error_msg = "Credentials were wrong. Please try again.";
+			return res.status(401).render("view_login", data );
+		} 
+		next(error);
 	}
 }
 

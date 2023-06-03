@@ -3,27 +3,37 @@ extends common\layout
 block content 
     form(method="POST")
         div(class="container")
+            if typeof error_msg === "string" 
+                div(class="alert alert-warning")
+                    span(class="bi bi-exclamation-triangle-fill")="  "
+                    span=error_msg
             div(class="row p-2")
                 div(class="col-md-auto")
                     label(for="usernameInput")="Username:"
             div(class="row p-2")
                 div(class="col-md-auto")
                 div(class="col")
-                    input(type="text" class="form-control" name="usernameInput" placeholder="Username" required)
+                    - 
+                        username = typeof username === "string" ? username : undefined
+                    input(type="text" class="form-control" name="usernameInput" placeholder="Username"  value=username required autocomplete="given-name")
             div(class="row p-2")
                 div(class="col-md-auto")
                     label(for="passwordInput")="Password:"
             div(class="row p-2")
                 div(class="col-md-auto")
                 div(class="col")
-                    input(type="password" class="form-control" name="passwordInput" placeholder="Password" required)
+                    - 
+                        password = typeof password === "string" ? password : undefined
+                    input(type="password" class="form-control" name="passwordInput" value=password placeholder="Password" required autocomplete="new-password")
             div(class="row p-2")
                 div(class="col-md-auto")
                     label(for="aliasInput")="Alias:"
             div(class="row p-2")
                 div(class="col-md-auto")
                 div(class="col")
-                    input(type="text" class="form-control" name="aliasInput" placeholder="Alias" required)
+                    - 
+                        alias = typeof alias === "string" ? alias : undefined
+                    input(type="text" class="form-control" name="aliasInput" placeholder="Alias" value=alias required autocomplete="nickname")
             div(class="row p-2 d-flex justify-content-center")
                 input(type="submit" class="btn btn-primary m-2 w-25" value="Register")
                 input(type="reset"  class="btn btn-primary m-2 w-25" value="Reset")

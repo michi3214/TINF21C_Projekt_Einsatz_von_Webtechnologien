@@ -4,6 +4,7 @@
 */
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const Errors = require("../Errors/error");
 
 
 /**
@@ -127,8 +128,7 @@ async function load_user_from_database (username){
 		};
 	}catch(error){
 		console.error("Failed to load user: " + username + " from database");
-		console.error(error);
-		return;
+		throw new Errors.DatabaseFailure(Error.message);
 	}
 
 }
@@ -157,11 +157,7 @@ async function add_user_to_database (username, alias, privilege, password){
 		});
 		return 0;
 	}catch(err){
-		console.error("Can not add user: " + username);
-		console.error(String(err));
-		return {
-			msg: "Can not add user. Reason: " + String(err)
-		};
+		throw new Errors.DatabaseFailure(err.message);
 	}
 	
 }

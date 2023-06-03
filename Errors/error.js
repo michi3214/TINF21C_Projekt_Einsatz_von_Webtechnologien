@@ -76,6 +76,15 @@ class InvalidUserCredentials extends Failure {
 
 
 
+class InvalidUsername extends InvalidUserCredentials{
+	constructor(messsage="Username is not valid."){
+		super(messsage);
+		this.name = "InvalidUsername";
+	}
+}
+
+
+
 
 /**
  * Failure while interaction with the database happened.
@@ -99,9 +108,10 @@ class DatabaseFailure extends Failure {
 
 
 module.exports = {
-	UnauthorizedAccess: UnauthorizedAccess,
-	InvalidToken:       InvalidToken,
-	InvalidUserCredentials: InvalidUserCredentials,
-	DatabaseFailure:    DatabaseFailure,
-	Failure:            Failure
+	UnauthorizedAccess,
+	InvalidToken,
+	InvalidUserCredentials,
+	InvalidUsername,
+	DatabaseFailure,
+	Failure
 };

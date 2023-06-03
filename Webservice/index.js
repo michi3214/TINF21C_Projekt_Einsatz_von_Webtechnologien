@@ -9,7 +9,6 @@ const path          = require("path");
 const cookieParser  = require("cookie-parser");
 
 const errorController   = require(path.join(__dirname, "controllers", "controller_error.js"));
-const Errors            = require("../Errors/error");
 
 
 // Add WYSIWYG editor
@@ -34,10 +33,10 @@ app.use("/content",  require(path.join(__dirname, "router", "router_content")));
 
 
 // Error handling
-app.use("/error404", errorController.getError404);
+app.use("/error401", errorController.getError401);
 app.use("/error403", errorController.getError403);
+app.use("/error404", errorController.getError404);
 app.use("/error500", errorController.getError500);
-app.use("/test", ()=>{throw new Errors.UnauthorizedAccess();}); // TODO: delete later
 app.use(errorController.getError404);
 app.use(errorController.getError);
 
