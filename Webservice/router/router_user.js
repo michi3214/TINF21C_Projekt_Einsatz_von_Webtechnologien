@@ -19,6 +19,7 @@ router.post("/register", controllerRegister.handleRegister);
 router.get("/logout", controllerLogout.getPage);
 
 router.get("/configuration",authentication.checkLogin,  controllerConfiguration.getPage);
+router.post("/configuration",authentication.checkLogin,  controllerConfiguration.postPage);
 router.get("/configuration/delete/:username",authentication.checkLogin, controllerConfiguration.handleUserDelete);
 
 module.exports = router;

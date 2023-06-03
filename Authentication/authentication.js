@@ -68,6 +68,21 @@ async function _add_user(user){
 
 
 
+/**
+ * Function to define not logged in user
+ *
+ * @async
+ * @returns {JSON}
+ */
+async function _get_basic_user(){
+	return {
+		login: false,
+		privilege: Privileges["basic"]
+	};
+}
+
+
+
 
 
 /**
@@ -81,6 +96,7 @@ async function _add_user(user){
 async function login(username, password){
 	try {
 		const user = await Database.load_user_from_database(username);
+		console.debug("login: " +  user);
 		const hash_password = user.hash_password;
 		if (await BCRYPT.compare(password, hash_password)){
 			return await _add_user(user);
@@ -88,7 +104,11 @@ async function login(username, password){
 			throw new Errors.InvalidUserCredentials(); 
 		}
 	} catch (error) {
-		throw new Errors.InvalidUsername();
+		console.error("login error" + error);
+		if(error instanceof Errors.DatabaseFailure){
+			throw Errors.InvalidUsername();
+		}
+		throw error;
 	}
 	
 }
@@ -148,18 +168,7 @@ async function register(username, alias, password){
 
 
 
-/**
- * Function to define not logged in user
- *
- * @async
- * @returns {JSON}
- */
-async function _get_basic_user(){
-	return {
-		login: false,
-		privilege: Privileges["basic"]
-	};
-}
+
 
 
 /**
@@ -252,11 +261,25 @@ async function check_privilege(user_previlege, previlege, next){
 		next(new Errors.UnauthorizedAccess("You are not allowed to execute this command."));
 	}
 }
+
+
+
+
+
+async function changePassword(new_password, username){
+	const salt = await BCRYPT.genSalt(15);
+	const password_hash = await BCRYPT.hash(new_password, salt);
+	await Database.changePassword(password_hash, username);
+}
+
+
+
 module.exports =  {
 	login,
 	logout,
 	register,
 	checkLogin,
 	getUser,
-	check_privilege: check_privilege
+	check_privilege,
+	changePassword
 };

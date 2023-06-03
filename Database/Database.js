@@ -110,6 +110,35 @@ async function delete_content_from_database(id){
 }
 
 
+
+
+
+/**
+ * Change the alias of one post
+ *
+ * @async
+ * @param {Number | String} post_id
+ * @param {String} new_alias
+ */
+async function changeAuthor(post_id, new_alias){
+	post_id = parseInt(post_id);
+	try{
+		await prisma.tbl_content.update({
+			where: {
+				id: post_id,
+			},
+			data: {
+				author_name: new_alias,
+			},
+		});
+	}catch(err){
+		console.error("Could not change alias of post: " + post_id);
+		throw new Errors.DatabaseFailure(err.message);
+	}
+}
+
+
+
 /**
  * Load specific information for given username
  *
@@ -141,7 +170,7 @@ async function load_user_from_database (username){
  * @async
  * @param {string} username
  * @param {string} alias
- * @param {string} privilege
+ * @param {number} privilege
  * @param {string} password
  */
 async function add_user_to_database (username, alias, privilege, password){
@@ -179,6 +208,85 @@ async function delete_user_from_database(username){
 }
 
 
+
+/**
+ * Change password of existing user
+ *
+ * @async
+ * @param {String} new_password_hash
+ * @param {String} username
+ */
+async function changePassword(new_password_hash, username){
+	try{
+		await prisma.tbl_author.update({
+			where: {
+				name: username,
+			},
+			data: {
+				password: new_password_hash,
+			},
+		});
+	}catch(err){
+		console.error("Could not change password of user: " + username);
+		throw new Errors.DatabaseFailure(err.message);
+	}
+}
+
+
+
+
+
+/**
+ * Change username of existing user
+ *
+ * @async
+ * @param {String} old_username
+ * @param {String} new_username
+ */
+async function changeUsername(old_username, new_username){
+	try{
+		await prisma.tbl_author.update({
+			where: {
+				name: old_username,
+			},
+			data: {
+				name: new_username,
+			},
+		});
+	}catch(err){
+		console.error("Could not change username of user: " + old_username);
+		throw new Errors.DatabaseFailure(err.message);
+	}
+}
+
+
+
+
+/**
+ * Change the alias of one user
+ * Please be aware to delete/change all aliases in the tbl_content first
+ *
+ * @async
+ * @param {*} username
+ * @param {*} new_alias
+ * @returns {*}
+ */
+async function changeAlias(username, new_alias) {
+	try{
+		await prisma.tbl_author.update({
+			where: {
+				name: username,
+			},
+			data: {
+				alias: new_alias,
+			},
+		});
+	}catch(err){
+		console.error("Could not change alias of user: " + username);
+		throw new Errors.DatabaseFailure(err.message);
+	}
+}
+
 module.exports =  {
 	load_content_from_database,
 	add_content_to_database,
@@ -186,5 +294,9 @@ module.exports =  {
 	delete_content_from_database,
 	load_user_from_database,
 	add_user_to_database,
-	delete_user_from_database
+	delete_user_from_database,
+	changePassword,
+	changeUsername,
+	changeAuthor,
+	changeAlias
 };
