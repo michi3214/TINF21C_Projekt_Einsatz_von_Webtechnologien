@@ -12,7 +12,7 @@ router.get("/delete/:id",authentication.checkLogin , controllerContent.deletePos
 router.get("/create",authentication.checkLogin, controllerContent.getCreate);
 router.post("/create",authentication.checkLogin, controllerContent.postCreate);
 
-// TODO: add bearbeiten 
+// TODO: add the function  bearbeiten 
 
 
 

@@ -26,7 +26,15 @@ async function getPage(req, res){
 
 
 
-// TODO: * should be in model * add JSDoc
+
+/**
+ * Login user or show error message to user	
+ *
+ * @async
+ * @param {HTTP Request} req
+ * @param {HTTP Response} res
+ * @param {Function} next
+ */
 async function handle_login(req, res, next){
 	const username = req.body.usernameInput;
 	const password = req.body.passwordInput;
