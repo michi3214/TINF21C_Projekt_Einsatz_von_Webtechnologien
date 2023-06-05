@@ -1,5 +1,0 @@
-
-
-Abgabe einer ZIP ohne Node_Module
-
-Check auto logout time (seem wrong to me)

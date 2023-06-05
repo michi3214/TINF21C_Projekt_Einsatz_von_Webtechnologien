@@ -16,12 +16,6 @@ Die Datenbank besteht aus 2 Tabellen.
    1. tbl_user
    2. tbl_content
 
-### 1. tbl_user
-tbl_user verwaltet die registrierten User und hat 7 Spalten. Der Nutzername muss hierbei eindeutig (unique) sein. Zudem werden das Passwort, der genutzte Salt und die Privilegien des Nutzers abgelegt. Die Privilegien werden hierbei in drei Booleans abgelegt, jeweils für Schreib-, Lese- und Updateberechtigungen. 
-### 1. tbl_content
-Die tbl_content hat 6 Spalten. Die Überschrift, der eigentliche Inhalt, sowie das Erstellungsdatum und Bearbeitungsdatum werden hinterlegt. Außerdem wird der Author gespeichert. 
-
-
 
 
 
