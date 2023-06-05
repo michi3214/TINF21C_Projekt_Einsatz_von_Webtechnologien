@@ -20,7 +20,6 @@ async function getTeaser(){
 		}
 		return contents;
 	}
-	
 }
 
 module.exports = {getTeaser};

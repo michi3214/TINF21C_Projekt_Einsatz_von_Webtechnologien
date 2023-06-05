@@ -16,10 +16,5 @@ router.post("/edit/:id",authentication.checkLogin , controllerContent.editPost);
 router.get("/create",authentication.checkLogin, controllerContent.getCreate);
 router.post("/create",authentication.checkLogin, controllerContent.postCreate);
 
-// TODO: add the function  bearbeiten 
-
-
-
-
 
 module.exports = router;

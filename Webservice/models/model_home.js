@@ -7,8 +7,6 @@ const Database = require("../../Database/database");
  * @returns {array} - Each Content is in an JSON-Object 
  */
 async function getBlogInformation(){
-	// TODO: Change this function oriented by the blog
-	const teaserLength = 200;
 	const contents = await Database.load_content_from_database();
 	if (typeof contents === "undefined"){
 		return;
@@ -20,15 +18,15 @@ async function getBlogInformation(){
 		sorted_contents = sorted_contents.slice(0,1);
 		for (const content of sorted_contents){
 			content.teaser = false;
-			if(content.content.length > teaserLength){
-				content.content = content.content.substring(0,teaserLength) + "...";
+			const break_positions = [content.content.indexOf(". "), content.content.indexOf("\n") - 1, content.content.indexOf(".\"")].filter(position => position > 0);
+			if(content.content.length > Math.min(...break_positions)){
+				content.content = content.content.substring(0,Math.min(...break_positions)) + "...";
 				content.teaser = true;
 			}
 		}
 		return {contents: sorted_contents, count: count};
 
 	}
-	
 }
 
 module.exports = {
