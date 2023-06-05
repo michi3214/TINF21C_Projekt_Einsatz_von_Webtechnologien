@@ -14,8 +14,8 @@ const Errors = require("../../Errors/error");
  */
 async function getPage(req, res){
 	res.render("view_register", {
-		tabTitle:"Blog - Register",
-		headline: "Register",
+		tabTitle:"Blog - Registrieren",
+		headline: "Registrieren",
 		pages: pages,
 		websiteName: websiteName,
 		user: await authentication.getUser(req)
@@ -53,8 +53,8 @@ async function handleRegister(req, res, next){
 		console.error("Could not register user: " + username);
 		if(error instanceof Errors.DatabaseFailure){
 			const data = {
-				tabTitle:"Blog - Register",
-				headline: "Register",
+				tabTitle:"Blog - Registrieren",
+				headline: "Registrieren",
 				pages: pages,
 				websiteName: websiteName,
 				user: await authentication.getUser(req),
