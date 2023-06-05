@@ -16,7 +16,7 @@ block content
                     div(class="card-body")
                         div(class="card-text mb-2")!=content.content
                     div(class="d-flex justify-content-center mb-1")
-                        a(class="btn btn-primary m-1" href="/content/read/" + content.id)="Gesamten Beitrag lesen..."
+                        a(class="btn btn-primary btn-sm m-1" href="/content/read/" + content.id)="Gesamten Beitrag lesen..."
                         if user.privilege > 2
-                            a(class="btn btn-secondary m-1" href="/content/edit/" + content.id)="Beitrag bearbeiten"
-                            a(class="btn btn-danger m-1" href="/content/delete/" + content.id)="Beitrag löschen"
+                            a(class="btn btn-secondary btn-sm m-1" href="/content/edit/" + content.id)="Beitrag bearbeiten"
+                            a(class="btn btn-danger btn-sm m-1" href="/content/delete/" + content.id)="Beitrag löschen"

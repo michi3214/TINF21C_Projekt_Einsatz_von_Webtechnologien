@@ -96,7 +96,6 @@ async function _get_basic_user(){
 async function login(username, password){
 	try {
 		const user = await Database.load_user_from_database(username);
-		console.debug("login: " +  user);
 		const hash_password = user.hash_password;
 		if (await BCRYPT.compare(password, hash_password)){
 			return await _add_user(user);

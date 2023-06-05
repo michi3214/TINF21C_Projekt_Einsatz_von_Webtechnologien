@@ -143,7 +143,6 @@ async function editPost(req, res, next){
 	const content_id = req.params.id;
 	const headline = req.body.headlineInput;
 	const content = req.body.contentInput;
-	console.debug("Edit: " + content_id);
 	try{
 		await ContentModel.editPost(user.alias, content_id, headline, content);
 	}catch(error){

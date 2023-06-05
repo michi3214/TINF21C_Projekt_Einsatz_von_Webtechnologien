@@ -6,9 +6,12 @@ block content
         each content in contents
             div(class="m-4")
                 div(class="card m-2")
+                    div(class="card-header")
+                        h4(class="card-title text-center")!=content.headline
                     div(class="card-body")
-                        div(class="card-title border-bottom")!=content.headline
                         div(class="card-text mb-2")!=content.content
-                        div
-                            a(class="btn btn-primary" href="/content/read/" + content.id)="Gesamten Beitrag lesen..."
-
+                    div(class="d-flex justify-content-center mb-1")
+                        a(class="btn btn-primary btn-sm m-1" href="/content/read/" + content.id)="Gesamten Beitrag lesen..."
+                        if user.privilege > 2
+                            a(class="btn btn-secondary btn-sm m-1" href="/content/edit/" + content.id)="Beitrag bearbeiten"
+                            a(class="btn btn-danger btn-sm m-1" href="/content/delete/" + content.id)="Beitrag löschen"

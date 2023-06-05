@@ -43,7 +43,6 @@ async function postPage(req, res, next){
 	const new_alias = req.body.aliasInput;
 	const new_password = req.body.passwordInput;
 
-	console.debug(new_username + " " + new_alias + " " + new_password);
 	try {
 		const user = await authentication.getUser(req);
 	

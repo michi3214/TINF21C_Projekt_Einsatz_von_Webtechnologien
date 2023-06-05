@@ -59,7 +59,6 @@ async function handle_login(req, res, next){
 		};
 		if(error instanceof Errors.InvalidUsername){
 			console.error("Not existing username used to login");
-			console.debug(error);
 			data.error_msg = "Der Nutzername existiert nicht, bitte <a href=\"/user/register\">registrieren</a> Sie sich oder versuchen Sie es erneut.";
 			return res.status(401).render("view_login", data );
 		}else if(error instanceof Errors.InvalidUserCredentials){
