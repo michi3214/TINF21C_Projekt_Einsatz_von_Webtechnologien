@@ -1,10 +1,18 @@
 div(class="container-fluid h-100")
+
     div(class="mb-3 container-fluid")
         label(for="headlineInput" class="form-label")="Überschrift: "
-        input(type="text" id="headlineInput" class="form-control" name="headlineInput" placeholder="Überschrift" required) 
+        if typeof content === "object" && typeof content.headline === "string"
+            input(type="text" id="headlineInput" class="form-control" name="headlineInput" value=content.headline required) 
+        else 
+            input(type="text" id="headlineInput" class="form-control" name="headlineInput" placeholder="Überschrift" required) 
     div(class="mb-3 container-fluid h-100")
         label(for="tinymce_editor" class="form-label")="Inhalt: "
-        textarea(id="tinymce_editor" name="contentInput" placeholder="Inhalt")
+        if typeof content === "object" && typeof content.content === "string"
+            textarea(id="tinymce_editor" name="contentInput")=content.content
+        else 
+            textarea(id="tinymce_editor" name="contentInput" placeholder="Inhalt")
+
 
 script(type="application/javascript" src= "/tinymce/tinymce.min.js" referrerpolicy="origin")
 script

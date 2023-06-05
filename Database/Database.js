@@ -287,6 +287,27 @@ async function changeAlias(username, new_alias) {
 	}
 }
 
+
+async function edit_content(user_alias, content_id, headline, content){
+	content_id = parseInt(content_id);
+	try {
+		await prisma.tbl_content.update({
+			where:{
+				id: content_id
+			},
+			data:{
+				content:content,
+				headline:headline,
+				author_name: user_alias
+			}
+		});
+	} catch (error) {
+		console.error("Could not change post in the database");
+		throw new Errors.DatabaseFailure(error.message);
+	}
+}
+
+
 module.exports =  {
 	load_content_from_database,
 	add_content_to_database,
@@ -295,6 +316,7 @@ module.exports =  {
 	load_user_from_database,
 	add_user_to_database,
 	delete_user_from_database,
+	edit_content,
 	changePassword,
 	changeUsername,
 	changeAuthor,

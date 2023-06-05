@@ -8,6 +8,7 @@ block content
             div(class="col")="Erstellt am " + data.created
     if user.privilege > 2
         div(class="d-flex justify-content-center mt-3")
+            a(class="btn btn-secondary m-1" href="/content/edit/" + data.id)="Bearbeiten des Beitrags"
             a(class="btn btn-danger m-1" href="/content/delete/" + data.id)="Lösche den Beitrag"
     div(class="p-3")!=data.content
     div(class="d-flex justify-content-left")

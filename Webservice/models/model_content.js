@@ -45,9 +45,27 @@ async function deletePost(id){
 	await Database.delete_content_from_database(id);
 }
 
+
+
+
+
+/**
+ * Edit post
+ *
+ * @async
+ * @param {String} username
+ * @param {String} content_id
+ * @param {String} headline
+ * @param {String} content
+ */
+async function editPost(user_alias, content_id, headline, content){
+	await Database.edit_content(user_alias, content_id, headline, content);
+}
+
 module.exports = {
 	getPost,
 	addPost,
-	deletePost
+	deletePost,
+	editPost
 };
 
